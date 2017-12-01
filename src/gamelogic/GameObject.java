@@ -11,7 +11,7 @@ public abstract class GameObject {
     /**
      * This is the character an object will show when it is printed.
      */
-private char ascii = "";
+private String ascii = " ";
 
 /**
  * This method prints an obstacle's ascii character.
