@@ -16,7 +16,10 @@ private String ascii = " ";
  * This boolean controls whether a mob can enter this tile.
  */
 private boolean passable = false;
-
+/**
+ * This is the maximum stack of items in the inventory or on the floor.
+ */
+static final int MAX_STACK = 99;
 /**
  * This method prints an obstacle's ascii character.
  */
