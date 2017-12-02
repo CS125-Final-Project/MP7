@@ -12,4 +12,11 @@ public class Mob extends GameObject {
      * Is it trying to kill you.?
      */
     private boolean isHostile;
+    private int attackRange;
+    
+    
+    public int findPlayer() {
+        return 0;
+    }
+    
 }
