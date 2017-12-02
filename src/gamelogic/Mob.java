@@ -13,10 +13,16 @@ public class Mob extends GameObject {
      */
     private boolean isHostile;
     private int attackRange;
-    
-    
+
+    /**
+     * 
+     * 
+     * @return This will return an integer absed on which step will lead to the
+     *         player the fastest. 1 is a North, 2 is a East, 3 is a South, 4 is a
+     *         West.
+     */
     public int findPlayer() {
         return 0;
     }
-    
+
 }
