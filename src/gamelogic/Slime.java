@@ -11,6 +11,8 @@ package gamelogic;
  */
 public class Slime extends Mob {
 
+    char ascii = 'S';
+    int attackRange = 0;
     /**.
      * 
      */
