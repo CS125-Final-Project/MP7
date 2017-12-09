@@ -23,7 +23,11 @@ public class Player extends GameObject {
     
     /** Whether the player in question is alive. */
     private boolean isAlive;
-
+    
+    public boolean isAlive() {
+        return isAlive;
+    }
+    
     /** Items carried by the player. */
     private GameObject[] inventory = new GameObject[MAX_STACK];
     
