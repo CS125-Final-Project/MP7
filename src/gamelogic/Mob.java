@@ -24,7 +24,7 @@ public class Mob extends GameObject {
      *         player the fastest. 0 is a North, 1 is a East, 2 is a South, 3 is a
      *         West.
      */
-    public int findPlayer(Player player) {
+    public int findPlayer() {
         // currently ignores walls
         int[] dirs = new int[4];
         /*
