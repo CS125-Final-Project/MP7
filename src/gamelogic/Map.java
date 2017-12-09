@@ -10,6 +10,10 @@ public class Map {
     public int[][] heatMap;
     public GameObject[][] gameMap;
     ArrayList<GameObject> listObj = new ArrayList<GameObject>();
+    private Player player;
+    public Player getPlayer() {
+        return player;
+    }
 
     /**
      * this function reads a text file and generates a level based on a text file.
@@ -36,9 +40,9 @@ public class Map {
                     gameMap[i][j] = new Slime();
                     listObj.add(gameMap[i][j]);
                 } else if (tempChar == playerAscii) {
-                    gameMap[i][j] = new Player(i,j);
+                    player = new Player(i,j);
+                    gameMap[i][j] = player;
                     listObj.add(gameMap[i][j]);
-
                 }
             }
         }
