@@ -9,7 +9,8 @@ package gamelogic;
  *
  */
 public class Player extends GameObject {
-
+    
+    char ascii = 'P';
     /**
      * has the player in question died.?
      */
@@ -19,4 +20,8 @@ public class Player extends GameObject {
      * this is how many items you can stack in a place.
      */
     private GameObject[] inventory = new GameObject[MAX_STACK];
+    Player() {
+        isAlive = true;
+        ascii = 'P';
+    }
 }
