@@ -21,6 +21,19 @@ public class Map {
     }
 
     /**
+     * Checks if a move is valid for this map.
+     * 
+     * @param move the move to check
+     * @return true iff it is a valid move
+     */
+    public boolean checkMove(int move) {
+        if (move < Util.NORTH || move > Util.WEST) {
+            return false;
+        }
+        return false;
+    }
+    
+    /**
      * this function reads a text file and generates a level based on a text file.
      * @param template The text file name REMEMBER TO ADD ".txt" TO THE END OF THE FILE NAME.
      */
