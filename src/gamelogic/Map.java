@@ -1,8 +1,12 @@
 package gamelogic;
 
-import java.util.ArrayList;
-
 import com.sun.corba.se.impl.copyobject.ReferenceObjectCopierImpl;
+import java.io.File;
+import java.net.URI;
+import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 
 public class Map {
     private int mapHeight;
@@ -11,20 +15,36 @@ public class Map {
     public GameObject[][] gameMap;
     ArrayList<GameObject> listObj = new ArrayList<GameObject>();
     private Player player;
+    
     public Player getPlayer() {
         return player;
     }
 
     /**
      * this function reads a text file and generates a level based on a text file.
-     * @param template The text file we are reading.
+     * @param template The text file name REMEMBER TO ADD ".txt" TO THE END OF THE FILE NAME.
      */
     public void templateReader(final String template) {
+        String templateText;
+        try {
+            String templatePath = Map.class.getClassLoader()
+                    .getResource(template).getFile();
+            
+            templatePath = new URI(templatePath).getPath();
+            File templateFile = new File(templatePath);
+            Scanner templateScanner = new Scanner(templateFile, "UTF-8");
+            templateText = templateScanner.useDelimiter("\\A").next();
+            templateScanner.close();
+        } catch (Exception e) {
+            throw new InvalidParameterException("Bad file path" + e);
+        }
+        
+        
         char slimeAscii = Slime.ascii;
         char playerAscii = Player.ascii;
         char wallAscii = Wall.ascii;
         
-        String[] rowChars = template.split("\n");
+        String[] rowChars = templateText.split("\n");
         for (int i = 0; i < this.gameMap.length; i += 1) {
             for (int j = 0; j < this.gameMap[i].length; j += 1) {
 
