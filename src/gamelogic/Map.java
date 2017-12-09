@@ -40,16 +40,41 @@ public class Map {
         }
     }
     
-    public void generateHeatMap(final int xPos, final int yPos, final int distance) {
-        GameObject tempObj = gameMap[xPos][yPos];
-        
-        
+    /** Code for an inaccessible location on the heat map. */
+    public static final int INACCESSIBLE = 999;
+    
+    /**
+     * Generates a "heat map", where the value is the distance from the player.
+     * 
+     * @param playerX the x coordinate of the player
+     * @param playerY the y coordintae of the player
+     */
+    public void genHeatMap(final int playerX, final int playerY) {
+        for (int x = 0; x < mapWidth; x++) {
+            for (int y = 0; y < mapHeight; y++) {
+                heatMap[x][y] = INACCESSIBLE;
+            }
+        }
+        generateHeatMap(playerX, playerY, 0);
+    }
+    
+    private void generateHeatMap(final int x, final int y, final int distance) {
+        if (gameMap[x][y] instanceof Wall) {
+            return;
+        } 
             
-        if (heatMap[])
-        this.generateHeatMap(xPos + 1, yPos, distance + 1);
-        this.generateHeatMap(xPos - 1, yPos, distance + 1);
-        this.generateHeatMap(xPos, yPos + 1, distance + 1);
-        this.generateHeatMap(xPos, yPos - 1, distance + 1);
+        if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
+            this.generateHeatMap(x + 1, y, distance + 1);
+        }
+        if (x - 1 > 0 && heatMap[x - 1][y] > distance + 1) {
+            this.generateHeatMap(x - 1, y, distance + 1);
+        }
+        if (y + 1 < mapWidth && heatMap[x][y + 1] > distance + 1) {
+            this.generateHeatMap(x, y + 1, distance + 1);
+        }
+        if (y - 1 > 0 && heatMap[x][y - 1] > distance + 1) {
+            this.generateHeatMap(x, y - 1, distance + 1);
+        }
     }
     
     /**
