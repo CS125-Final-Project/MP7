@@ -10,17 +10,17 @@ package gamelogic;
  */
 public class Player extends GameObject {
     
+    /** Character to represent the player. */
     char ascii = 'P';
-    /**
-     * has the player in question died.?
-     */
+    
+    /** Whether the player in question is alive. */
     private boolean isAlive;
 
-    /**
-     * this is how many items you can stack in a place.
-     */
+    /** Items carried by the player. */
     private GameObject[] inventory = new GameObject[MAX_STACK];
-    Player() {
+    
+    /** Constructor for player. */
+    public Player() {
         isAlive = true;
         ascii = 'P';
     }
