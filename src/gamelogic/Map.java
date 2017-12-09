@@ -41,8 +41,11 @@ public class Map {
     }
     
     public void generateHeatMap(final int xPos, final int yPos) {
-        if (gameMap)
+        GameObject tempObj = gameMap[xPos][yPos];
         
+        
+            
+            
         this.generateHeatMap(xPos + 1, yPos);
         this.generateHeatMap(xPos - 1, yPos);
         this.generateHeatMap(xPos, yPos + 1);
