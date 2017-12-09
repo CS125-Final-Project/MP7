@@ -11,6 +11,10 @@ public class Map {
     public GameObject[][] gameMap;
     ArrayList<GameObject> listObj = new ArrayList<GameObject>();
 
+    /**
+     * this function reads a text file and generates a level based on a text file.
+     * @param template The text file we are reading.
+     */
     public void templateReader(final String template) {
         char slimeAscii = Slime.ascii;
         char playerAscii = Player.ascii;
@@ -66,13 +70,13 @@ public class Map {
         if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
             this.generateHeatMap(x + 1, y, distance + 1);
         }
-        if (x - 1 > 0 && heatMap[x - 1][y] > distance + 1) {
+        if (x - 1 >= 0 && heatMap[x - 1][y] > distance + 1) {
             this.generateHeatMap(x - 1, y, distance + 1);
         }
         if (y + 1 < mapWidth && heatMap[x][y + 1] > distance + 1) {
             this.generateHeatMap(x, y + 1, distance + 1);
         }
-        if (y - 1 > 0 && heatMap[x][y - 1] > distance + 1) {
+        if (y - 1 >= 0 && heatMap[x][y - 1] > distance + 1) {
             this.generateHeatMap(x, y - 1, distance + 1);
         }
     }
