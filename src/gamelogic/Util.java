@@ -21,4 +21,22 @@ public class Util {
     public static int EAST = 1;
     public static int SOUTH = 2;
     public static int WEST = 3;
+    
+    public static int newX(int oldX, int dir) {
+        if (dir == EAST) {
+            return oldX + 1;
+        } else if (dir == WEST) {
+            return oldX - 1;
+        }
+        return oldX;
+    }
+    
+    public static int newY(int oldY, int dir) {
+        if (dir == SOUTH) {
+            return oldY + 1;
+        } else if (dir == NORTH) {
+            return oldY - 1;
+        }
+        return oldY;
+    }
 }
