@@ -24,6 +24,10 @@ public class Player extends GameObject {
     /** Whether the player in question is alive. */
     private boolean isAlive;
     
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+
     public boolean isAlive() {
         return isAlive;
     }
