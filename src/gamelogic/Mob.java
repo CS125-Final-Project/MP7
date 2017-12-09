@@ -50,6 +50,10 @@ public class Mob extends GameObject {
 
     /** Attacks the player. */
     public boolean attack(final int x, final int y, final int distance) {
+        boolean na;
+        boolean ea;
+        boolean sa;
+        boolean wa;
         if (distance > attackRange) {
             return false;
         }
@@ -58,20 +62,20 @@ public class Mob extends GameObject {
             return true;
         }
 
-        if (x + 1 < world.getMapWidth() && world.heatMap[x + 1][y] > distance + 1) {
-            this.attack(x + 1, y, distance + 1);
+        if (x + 1 < world.getMapWidth()) {
+            na = this.attack(x + 1, y, distance + 1);
         }
-        if (x - 1 >= 0 && world.heatMap[x - 1][y] > distance + 1) {
-            this.attack(x - 1, y, distance + 1);
+        if (x - 1 >= 0) {
+            ea = this.attack(x - 1, y, distance + 1);
         }
-        if (y + 1 < world.getMapHeight() && world.heatMap[x][y + 1] > distance + 1) {
-            this.attack(x, y + 1, distance + 1);
+        if (y + 1 < world.getMapHeight()) {
+            sa = this.attack(x, y + 1, distance + 1);
         }
-        if (y - 1 >= 0 && world.heatMap[x][y - 1] > distance + 1) {
-            this.attack(x, y - 1, distance + 1);
+        if (y - 1 >= 0) {
+            wa = this.attack(x, y - 1, distance + 1);
         }
 
-        return false;
+
     }
 
 }
