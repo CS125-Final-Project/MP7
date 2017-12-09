@@ -91,7 +91,7 @@ public class Map {
      * @param playerY the y coordintae of the player
      */
     public void genHeatMap(final int playerX, final int playerY) {
-        for (int x = 0; x < mapWidth; x++) {
+        for (int x = 0; x < getMapWidth(); x++) {
             for (int y = 0; y < mapHeight; y++) {
                 heatMap[x][y] = INACCESSIBLE;
             }
@@ -104,13 +104,13 @@ public class Map {
             return;
         } 
             
-        if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
+        if (x + 1 < getMapWidth() && heatMap[x + 1][y] > distance + 1) {
             this.generateHeatMap(x + 1, y, distance + 1);
         }
         if (x - 1 >= 0 && heatMap[x - 1][y] > distance + 1) {
             this.generateHeatMap(x - 1, y, distance + 1);
         }
-        if (y + 1 < mapWidth && heatMap[x][y + 1] > distance + 1) {
+        if (y + 1 < getMapWidth() && heatMap[x][y + 1] > distance + 1) {
             this.generateHeatMap(x, y + 1, distance + 1);
         }
         if (y - 1 >= 0 && heatMap[x][y - 1] > distance + 1) {
@@ -130,4 +130,14 @@ public class Map {
         this.heatMap = new int[width][height];
         this.templateReader(mapTemplate);
     }
+
+    public int getMapWidth() {
+        return mapWidth;
+    }
+
+    public int getMapHeight() {
+        return mapHeight;
+    }
+
+
 }
