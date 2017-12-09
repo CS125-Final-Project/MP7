@@ -17,8 +17,8 @@ public class Map {
         char wallAscii = Wall.ascii;
         
         String[] rowChars = template.split("\n");
-        for (int i = 0; i < rowChars.length; i += 1) {
-            for (int j = 0; j < rowChars[i].length(); j += 1) {
+        for (int i = 0; i < this.gameMap.length; i += 1) {
+            for (int j = 0; j < this.gameMap[i].length; j += 1) {
 
                 char tempChar = rowChars[i].charAt(j);
 
@@ -39,8 +39,15 @@ public class Map {
             }
         }
     }
-
+    /**
+     * Generates a map based off of a template.
+     * @param width
+     * @param height
+     * @param mapTemplate
+     */
     public Map(final int width, final int height, final String mapTemplate) {
-        gameMap = new GameObject[width][height];
+        this.gameMap = new GameObject[width][height];
+        this.heatMap = new int[width][height];
+        this.templateReader(mapTemplate);
     }
 }
