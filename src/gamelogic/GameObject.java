@@ -11,9 +11,9 @@ public abstract class GameObject {
     /**
      * This is the character an object will show when it is printed.
      */
-    private char ascii = ' ';
-    private int xPos;
-    private int yPos;
+    private char ascii;
+    protected int x;
+    protected int y;
     /**
      * This boolean controls whether a mob can enter this tile.
      */

@@ -40,16 +40,16 @@ public class Map {
         }
     }
     
-    public void generateHeatMap(final int xPos, final int yPos) {
+    public void generateHeatMap(final int xPos, final int yPos, final int distance) {
         GameObject tempObj = gameMap[xPos][yPos];
         
         
             
-            
-        this.generateHeatMap(xPos + 1, yPos);
-        this.generateHeatMap(xPos - 1, yPos);
-        this.generateHeatMap(xPos, yPos + 1);
-        this.generateHeatMap(xPos + 1, yPos - 1);
+        if (heatMap[])
+        this.generateHeatMap(xPos + 1, yPos, distance + 1);
+        this.generateHeatMap(xPos - 1, yPos, distance + 1);
+        this.generateHeatMap(xPos, yPos + 1, distance + 1);
+        this.generateHeatMap(xPos, yPos - 1, distance + 1);
     }
     
     /**

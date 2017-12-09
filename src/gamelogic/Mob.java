@@ -13,12 +13,6 @@ public class Mob extends GameObject {
     
     private int attackRange;
     
-    /** x position. */
-    private int x;
-    
-    /** y position. */
-    private int y;
-    
     // Codes for directions
     public static int NORTH = 0;
     public static int EAST = 1;

@@ -7,6 +7,8 @@ package gamelogic;
  */
 public class Wall extends GameObject {
 
+    public static char ascii = '#';
+    
     /**
      * This controls whether the wall can be broken.
      */
