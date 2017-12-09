@@ -1,17 +1,18 @@
 package gamelogic;
 
 /**
- * This is an enemy which does a thing.
+ * You thought we needed to make a shitton of different classes. CHECKMATE, we
+ * dun made an ABSTRACTION;
  * 
  * @author Elayda
  *
  */
-public class Mob extends GameObject {
-    private Map world;
+public abstract class Mob extends GameObject {
+    protected Map world;
     /** Is it trying to kill you.? */
-    private boolean isHostile;
+    protected boolean isHostile;
 
-    private int attackRange;
+    protected int attackRange;
 
     // Codes for directions
     public static int NORTH = 0;
@@ -25,7 +26,6 @@ public class Mob extends GameObject {
      *         West.
      */
     public int findPlayer() {
-        // currently ignores walls
         int[] dirs = new int[4];
         /*
          * dirs[NORTH] = this.y - player.getY(); dirs[EAST] = player.getX() - this.x;
@@ -74,7 +74,6 @@ public class Mob extends GameObject {
         if (y - 1 >= 0) {
             wa = this.attack(x, y - 1, distance + 1);
         }
-
 
     }
 

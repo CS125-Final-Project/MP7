@@ -70,7 +70,7 @@ public class Map {
                     gameMap[i][j] = new Wall();
 
                 } else if (tempChar == slimeAscii) {
-                    gameMap[i][j] = new Slime();
+                    gameMap[i][j] = new Slime(this);
                     listObj.add(gameMap[i][j]);
                 } else if (tempChar == playerAscii) {
                     player = new Player(i,j);

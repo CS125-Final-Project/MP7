@@ -5,18 +5,22 @@
 package gamelogic;
 
 /**
- * .
+ * get mckfuckin slimed punk. this scrappy fellow will fuck your shit up. Get
+ * meltified by its bone sizzling acid.
+ * 
  * @author Elayda
  *
  */
 public class Slime extends Mob {
 
-    public static char ascii = 'S';
-    int attackRange = 0;
-    /**.
+    /**
+     * .
      * 
      */
-    public Slime() {
+    public Slime(final Map exist) {
+        this.ascii = 's';
+        this.attackRange = 0;
+        this.world = exist;
         // TODO Auto-generated constructor stub
     }
 
