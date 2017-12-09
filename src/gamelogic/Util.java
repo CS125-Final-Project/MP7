@@ -22,6 +22,13 @@ public class Util {
     public static int SOUTH = 2;
     public static int WEST = 3;
     
+    /**
+     * Returns the new x-coordinate after moving in the specified direction.
+     * 
+     * @param oldX the initial x-coordinate
+     * @param dir the direction of movement (NORTH, EAST, SOUTH, or WEST)
+     * @return the new x-coordinate
+     */
     public static int newX(int oldX, int dir) {
         if (dir == EAST) {
             return oldX + 1;
@@ -31,6 +38,13 @@ public class Util {
         return oldX;
     }
     
+    /**
+     * Returns the new y-coordinate after moving in the specified direction.
+     * 
+     * @param oldY the initial y-coordinate
+     * @param dir the direction of movement (NORTH, EAST, SOUTH, or WEST)
+     * @return the new y-coordinate
+     */
     public static int newY(int oldY, int dir) {
         if (dir == SOUTH) {
             return oldY + 1;
