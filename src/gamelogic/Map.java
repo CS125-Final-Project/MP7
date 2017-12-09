@@ -1,6 +1,5 @@
 package gamelogic;
 
-import com.sun.corba.se.impl.copyobject.ReferenceObjectCopierImpl;
 import java.io.File;
 import java.net.URI;
 import java.security.InvalidParameterException;
@@ -30,7 +29,13 @@ public class Map {
         if (move < Util.NORTH || move > Util.WEST) {
             return false;
         }
-        return false;
+        int newX = Util.newX(player.getX(), move);
+        int newY = Util.newY(player.getY(), move);
+        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight
+                || gameMap[newX][newY] instanceof Wall) {
+            return false;
+        }
+        return true;
     }
     
     /**
@@ -88,7 +93,7 @@ public class Map {
      * Generates a "heat map", where the value is the distance from the player.
      * 
      * @param playerX the x coordinate of the player
-     * @param playerY the y coordintae of the player
+     * @param playerY the y coordinate of the player
      */
     public void genHeatMap(final int playerX, final int playerY) {
         for (int x = 0; x < getMapWidth(); x++) {
