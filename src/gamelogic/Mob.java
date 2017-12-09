@@ -58,7 +58,7 @@ public abstract class Mob extends GameObject {
             return false;
         }
         if (world.gameMap[x][y] instanceof Player) {
-            world.gameMap[x][y].setAlive(false);
+            ((Player) world.gameMap[x][y]).setAlive(false);
             return true;
         }
 
