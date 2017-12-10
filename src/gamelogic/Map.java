@@ -41,8 +41,22 @@ public class Map {
         return true;
     }
     
+    /**
+     * Attempts to move the object at oldX, oldY to newX, newY.
+     * Fails if you try to move into a wall or are nothing.
+     * @param oldX old x
+     * @param oldY old y
+     * @param newX new x
+     * @param newY new y
+     * @return true on success, false on failure.
+     */
     public boolean moveObject(final int oldX, final int oldY, final int newX, final int newY) {
-        if (gameMap[oldX][oldY] == null || gameMap[])
+        if (gameMap[newX][newY] instanceof Wall || gameMap[oldX][oldY] == null) {
+            return false;
+        }
+        gameMap[newX][newY] = gameMap[oldX][oldY];
+        gameMap[oldX][oldY] = null;
+        return true;
     }
     
     /**
