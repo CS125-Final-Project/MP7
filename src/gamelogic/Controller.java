@@ -51,6 +51,7 @@ public class Controller {
     }
 
     private static void moveEnemies() {
+        map.genHeatMap();
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
             Mob temp = ((Mob) map.getEnemies().get(i));
             temp.attack(temp.x, temp.y, temp.attackRange);

@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Map {
     private int mapHeight;
     private int mapWidth;
-    public int[][] heatMap;
-    private GameObject[][] gameMap;
+    int[][] heatMap;
+    GameObject[][] gameMap;
     private ArrayList<GameObject> enemies = new ArrayList<GameObject>();
     private Player player;
     
@@ -40,6 +40,11 @@ public class Map {
         }
         return true;
     }
+    
+    public boolean moveObject(final int oldX, final int oldY, final int newX, final int newY) {
+        if (gameMap[oldX][oldY] == null || gameMap[])
+    }
+    
     /**
      * This function will move the player and kill things where the player moves. 
      *      Can later be changed to attack stuff.

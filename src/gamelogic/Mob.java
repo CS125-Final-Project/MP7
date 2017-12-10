@@ -32,7 +32,7 @@ public abstract class Mob extends GameObject {
          */
         
         // Smart pathfinding.
-        world.genHeatMap();
+        // world.genHeatMap();
         dirs[Util.NORTH] = world.heatMap[x][y - 1];
         dirs[Util.EAST] = world.heatMap[x + 1][y];
         dirs[Util.SOUTH] = world.heatMap[x][y + 1];
@@ -138,5 +138,6 @@ public abstract class Mob extends GameObject {
         return false;
 
     }
-    abstract public void move();
+    
+    public abstract void move();
 }

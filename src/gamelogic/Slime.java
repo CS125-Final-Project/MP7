@@ -14,12 +14,17 @@ package gamelogic;
 public class Slime extends Mob {
     public static final char ASCII = 'S';
     
+    /** Moves the slime. */
     public void move() {
-        int moveDir = this.findPlayer();
-        world.gameMap[this.x][this.y] = null;
-        this.x = Util.newX(this.x, moveDir);
-        this.y = Util.newY(this.y, moveDir);
-        world.gameMap[this.x][this.y] = this;
+        int moveDir = findPlayer();
+        int newX = Util.newX(x, moveDir);
+        int newY = Util.newY(y, moveDir);
+        if (world.moveObject(x, y, newX, newY)) {
+            x = newX;
+            y = newY;
+        } else {
+            System.out.println("The slime says 'blurp'.");
+        }
     }
     
     /**
@@ -29,10 +34,10 @@ public class Slime extends Mob {
     public Slime(int xPos, int yPos, final Map exist) {
         ascii = ASCII;
         name = "Slime";
-        this.attackRange = 1;
-        this.world = exist;
-        this.x = xPos;
-        this.y = yPos;
+        attackRange = 1;
+        world = exist;
+        x = xPos;
+        y = yPos;
         // TODO Auto-generated constructor stub
     }
     
