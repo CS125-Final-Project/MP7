@@ -25,11 +25,17 @@ public class Controller {
     private static Player player;
     private static MyKeyListener input;
     
+    /**
+     * Tries to move the player in the specified direction.
+     * If successful, the player moves, followed by the enemies' turn.
+     * @param direction the direction to attempt to move
+     */
     public static void movePlayer(int direction) {
-        // does some stuff
         if (map.checkMove(direction)) {
+            // does some stuff
             moveEnemies();
         }
+        // don't do anything if the move was invalid
     }
     
     private static void moveEnemies() {
