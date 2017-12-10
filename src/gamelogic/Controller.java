@@ -33,7 +33,9 @@ public class Controller {
     }
     
     private static void moveEnemies() {
-        
+        for ( int i = 0; i < map.getEnemies().size(); i += 1) {
+            ((Slime) map.getEnemies().get(i)).attack(x, y, distance)
+        }
     }
     
     /*

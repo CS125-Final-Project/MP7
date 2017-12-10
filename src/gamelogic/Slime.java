@@ -23,10 +23,12 @@ public class Slime extends Mob {
      * .
      * 
      */
-    public Slime(final Map exist) {
+    public Slime(int xPos, int yPos, final Map exist) {
         ascii = ASCII;
         this.attackRange = 0;
         this.world = exist;
+        this.x = xPos;
+        this.y = yPos;
         // TODO Auto-generated constructor stub
     }
 
