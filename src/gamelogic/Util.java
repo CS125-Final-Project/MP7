@@ -2,7 +2,7 @@ package gamelogic;
 
 public class Util {
     /**
-     * Finds the index of the max value of an integer array.
+     * Finds the index of the maximum value of an integer array.
      * @param data the array of integer data
      * @return the index of the max value
      */
@@ -14,6 +14,21 @@ public class Util {
             }
         }
         return maxIdx;
+    }
+    
+    /**
+     * Finds the index of the minimum value of an integer array.
+     * @param data the array of integer data
+     * @return the index of the minimum value
+     */
+    public static int findIndexOfMin(final int[] data) {
+        int minIdx = 0;
+        for (int i = 1; i < data.length; i++) {
+            if (data[i] > data[minIdx]) {
+                minIdx = i;
+            }
+        }
+        return minIdx;
     }
     
     // Codes for directions
