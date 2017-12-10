@@ -9,9 +9,9 @@ public class Controller {
      *            unused
      */
     public static void main(final String[] args) {
-        map = new Map("Map_Data.txt");
-        player = map.getPlayer();
-        input = new MyKeyListener();
+        Controller.map = new Map("Map_Data.txt");
+        Controller.player = map.getPlayer();
+        Controller.input = new MyKeyListener();
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
@@ -48,13 +48,7 @@ public class Controller {
         }
     }
     
-    private static void printUpdate() {
-        for (int x = 0; x < map.getMapWidth(); x += 1) {
-            for (int y = 0; y < map.getMapWidth(); y += 1) {
-                map.gameMap[x][y].printAscii();
-            }
-        }
-    }
+
 
     /*
      * private static int getMove() { return -1; }

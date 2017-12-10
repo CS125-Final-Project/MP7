@@ -40,7 +40,15 @@ public class Map {
         }
         return true;
     }
-
+    /**
+     * This function will move the player and kill things where the player moves. 
+     *      Can later be changed to attack stuff.
+     * @param move This is the direction which will be passed in by the controller. 
+     *      Obtained from the key listener.
+     * @param player This is the player on the map.
+     * @return This confirms that the move has occurred.
+     */
+    
     public boolean movePlayer(int move, Player player) {
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
