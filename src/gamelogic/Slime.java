@@ -13,13 +13,15 @@ package gamelogic;
  */
 public class Slime extends Mob {
     public static final char ASCII = 'S';
+    
     public void move() {
         int moveDir = this.findPlayer();
         this.x = Util.newX(this.x, moveDir);
         this.x = Util.newY(this.y, moveDir);
     }
+    
     /**
-     * .
+     * ISSA NEW SLIME.
      * 
      */
     public Slime(int xPos, int yPos, final Map exist) {
