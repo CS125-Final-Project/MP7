@@ -12,8 +12,12 @@ public class Map {
     private int mapWidth;
     public int[][] heatMap;
     public GameObject[][] gameMap;
-    ArrayList<GameObject> listObj = new ArrayList<GameObject>();
+    private ArrayList<GameObject> enemies = new ArrayList<GameObject>();
     private Player player;
+    
+    public ArrayList<GameObject> getEnemies() {
+        return enemies;
+    }
     
     public Player getPlayer() {
         return player;
@@ -113,14 +117,14 @@ public class Map {
 
                 } else if (tempChar == Slime.ASCII) {
                     gameMap[x][y] = new Slime(this);
-                    listObj.add(gameMap[x][y]);
+                    enemies.add(gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
                         throw new IllegalArgumentException("Level data has two or more players!");
                     }
                     player = new Player(x, y);
                     gameMap[x][y] = player;
-                    listObj.add(gameMap[x][y]);
+                    enemies.add(gameMap[x][y]);
                 }
             }
         }
