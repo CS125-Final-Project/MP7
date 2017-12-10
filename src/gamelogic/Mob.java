@@ -28,24 +28,20 @@ public abstract class Mob extends GameObject {
     public int findPlayer() {
         int[] dirs = new int[4];
         /*
+         * // Stupid pathfinding.
          * dirs[NORTH] = this.y - player.getY(); dirs[EAST] = player.getX() - this.x;
          * dirs[SOUTH] = player.getY() - this.x; dirs[WEST] = this.x - player.getX();
          * 
-         * 
          * return Util.findIndexOfMax(dirs);
          */
+        
+        // Smart pathfinding.
         dirs[NORTH] = world.heatMap[x][y - 1];
         dirs[EAST] = world.heatMap[x + 1][y];
         dirs[SOUTH] = world.heatMap[x][y + 1];
         dirs[WEST] = world.heatMap[x - 1][y];
 
-        int ind = 0;
-        for (int i = 0; i < dirs.length; i += 1) {
-            if (dirs[ind] > dirs[i]) {
-                ind = i;
-            }
-        }
-        return ind;
+        return Util.findIndexOfMin(dirs);
     }
 
     /** Attacks the player. */
