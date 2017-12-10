@@ -1,5 +1,7 @@
 package gamelogic;
 
+import javax.swing.JFrame;
+
 public class Controller {
 
     /**
@@ -11,7 +13,10 @@ public class Controller {
     public static void main(final String[] args) {
         map = new Map("Map_Data.txt");
         player = map.getPlayer();
-        input = new MyKeyListener();
+        JFrame listening = new JFrame();
+        listening.addKeyListener(new MyKeyListener());
+        listening.setVisible(true);
+        map.printToConsole();
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
@@ -32,6 +37,14 @@ public class Controller {
     public static void movePlayer(int direction) {
         if (map.checkMove(direction)) {
             // does some stuff
+            map.movePlayer(direction);
+            map.printToConsole();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             moveEnemies();
         }
         // don't do anything if the move was invalid
@@ -39,22 +52,17 @@ public class Controller {
 
     private static void moveEnemies() {
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
-            Slime temp = ((Slime) map.getEnemies().get(i));
+            Mob temp = ((Mob) map.getEnemies().get(i));
             temp.attack(temp.x, temp.y, temp.attackRange);
         }
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
-            Slime temp = ((Slime) map.getEnemies().get(i));
+            Mob temp = ((Mob) map.getEnemies().get(i));
             temp.move();
         }
+        map.printToConsole();
     }
     
-    private static void printUpdate() {
-        for (int x = 0; x < map.getMapWidth(); x += 1) {
-            for (int y = 0; y < map.getMapWidth(); y += 1) {
-                map.gameMap[x][y].printAscii();
-            }
-        }
-    }
+
 
     /*
      * private static int getMove() { return -1; }
