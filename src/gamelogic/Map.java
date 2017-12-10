@@ -116,7 +116,7 @@ public class Map {
                     gameMap[x][y] = new Wall();
 
                 } else if (tempChar == Slime.ASCII) {
-                    gameMap[x][y] = new Slime(this);
+                    gameMap[x][y] = new Slime(x,y,this);
                     enemies.add(gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
