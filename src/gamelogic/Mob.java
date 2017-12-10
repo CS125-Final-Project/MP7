@@ -15,6 +15,10 @@ public abstract class Mob extends GameObject {
     protected int attackRange;
     
     protected String name;
+    
+    public String getName() {
+        return name;
+    }
 
     /**
      * @return This will return an integer based on which step will lead to the

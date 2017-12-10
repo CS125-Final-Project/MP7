@@ -11,10 +11,10 @@ public class Map {
     private int mapWidth;
     int[][] heatMap;
     GameObject[][] gameMap;
-    private ArrayList<GameObject> enemies = new ArrayList<GameObject>();
+    private ArrayList<Mob> enemies = new ArrayList<Mob>();
     private Player player;
     
-    public ArrayList<GameObject> getEnemies() {
+    public ArrayList<Mob> getEnemies() {
         return enemies;
     }
     
@@ -64,24 +64,23 @@ public class Map {
      *      Can later be changed to attack stuff.
      * @param move This is the direction which will be passed in by the controller. 
      *      Obtained from the key listener.
-     * @param player This is the player on the map.
      * @return This confirms that the move has occurred.
      */
     
     public boolean movePlayer(int move) {
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        this.gameMap[player.getX()][player.getY()] = null;
-        if (this.gameMap[newX][newY] instanceof Mob) {
-            for (int i = 0; i < this.enemies.size(); i += 1) {
-                if (this.enemies.get(i).x == this.gameMap[newX][newY].x
-                        && this.enemies.get(i).y == this.gameMap[newX][newY].y) {
-                    this.enemies.remove(i);
-                    System.out.println("You killed a ");
+        gameMap[player.getX()][player.getY()] = null;
+        if (gameMap[newX][newY] instanceof Mob) {
+            for (int i = 0; i < enemies.size(); i += 1) {
+                if (enemies.get(i).x == gameMap[newX][newY].x
+                        && enemies.get(i).y == gameMap[newX][newY].y) {
+                    System.out.println("You killed a " + enemies.get(i).getName());
+                    enemies.remove(i);
                 }
             }
         } else {
-            this.gameMap[newX][newY] = player;
+            gameMap[newX][newY] = player;
             player.x = newX;
             player.y = newY;
         }
@@ -109,16 +108,16 @@ public class Map {
         } 
         heatMap[x][y] = distance;
         if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
-            this.generateHeatMap(x + 1, y, distance + 1);
+            generateHeatMap(x + 1, y, distance + 1);
         }
         if (x - 1 >= 0 && heatMap[x - 1][y] > distance + 1) {
-            this.generateHeatMap(x - 1, y, distance + 1);
+            generateHeatMap(x - 1, y, distance + 1);
         }
         if (y + 1 < mapHeight && heatMap[x][y + 1] > distance + 1) {
-            this.generateHeatMap(x, y + 1, distance + 1);
+            generateHeatMap(x, y + 1, distance + 1);
         }
         if (y - 1 >= 0 && heatMap[x][y - 1] > distance + 1) {
-            this.generateHeatMap(x, y - 1, distance + 1);
+            generateHeatMap(x, y - 1, distance + 1);
         }
     }
 
@@ -146,10 +145,10 @@ public class Map {
         
         mapWidth = rowChars[0].length();
         mapHeight = rowChars.length;
-        this.gameMap = new GameObject[mapWidth][mapHeight];
-        this.heatMap = new int[mapWidth][mapHeight];
-        for (int x = 0; x < this.gameMap.length; x += 1) {
-            for (int y = 0; y < this.gameMap[x].length; y += 1) {
+        gameMap = new GameObject[mapWidth][mapHeight];
+        heatMap = new int[mapWidth][mapHeight];
+        for (int x = 0; x < gameMap.length; x += 1) {
+            for (int y = 0; y < gameMap[x].length; y += 1) {
 
                 char tempChar = rowChars[y].charAt(x);
 
@@ -161,7 +160,7 @@ public class Map {
 
                 } else if (tempChar == Slime.ASCII) {
                     gameMap[x][y] = new Slime(x, y, this);
-                    enemies.add(gameMap[x][y]);
+                    enemies.add((Slime)gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
                         throw new IllegalArgumentException("Level data has two or more players!");
