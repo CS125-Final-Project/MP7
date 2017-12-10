@@ -60,8 +60,9 @@ public abstract class Mob extends GameObject {
         if (world.gameMap[x][y] instanceof Wall) {
             return false;
         }
-        return this.attackNorth(x, y-1, distance+1);
+        return this.attackNorth(x, y - 1, distance + 1);
     }
+
     /** Attacks the player. */
     public boolean attackEast(final int x, final int y, final int distance) {
         if (distance > attackRange) {
@@ -74,9 +75,9 @@ public abstract class Mob extends GameObject {
         if (world.gameMap[x][y] instanceof Wall) {
             return false;
         }
-        return this.attackEast(x+1, y, distance+1);
+        return this.attackEast(x + 1, y, distance + 1);
     }
-    
+
     /** Attacks the player. */
     public boolean attackSouth(final int x, final int y, final int distance) {
         if (distance > attackRange) {
@@ -89,8 +90,9 @@ public abstract class Mob extends GameObject {
         if (world.gameMap[x][y] instanceof Wall) {
             return false;
         }
-        return this.attackSouth(x, y+1, distance + 1);
+        return this.attackSouth(x, y + 1, distance + 1);
     }
+
     /** Attacks the player. */
     public boolean attackWest(final int x, final int y, final int distance) {
         if (distance > attackRange) {
@@ -103,10 +105,9 @@ public abstract class Mob extends GameObject {
         if (world.gameMap[x][y] instanceof Wall) {
             return false;
         }
-        return this.attackWest(x-1, y, distance + 1);
+        return this.attackWest(x - 1, y, distance + 1);
     }
-    
-    
+
     /** Attacks the player. */
     public boolean attack(final int x, final int y, final int distance) {
         boolean na = false;
@@ -136,7 +137,7 @@ public abstract class Mob extends GameObject {
         if (y - 1 >= 0) {
             wa = this.attackWest(x, y - 1, distance + 1);
         }
-        return na|| sa || wa || ea;
+        return na || sa || wa || ea;
 
     }
 
