@@ -38,54 +38,6 @@ public class Map {
         return true;
     }
     
-    /**
-     * this function reads a text file and generates a level based on a text file.
-     * @param template The text file name REMEMBER TO ADD ".txt" TO THE END OF THE FILE NAME.
-     */
-    public void templateReader(final String templateFilename) {
-        String templateText;
-        try {
-            String templatePath = Map.class.getClassLoader()
-                    .getResource(templateFilename).getFile();
-            
-            templatePath = new URI(templatePath).getPath();
-            File templateFile = new File(templatePath);
-            Scanner templateScanner = new Scanner(templateFile, "UTF-8");
-            templateText = templateScanner.useDelimiter("\\A").next();
-            templateScanner.close();
-        } catch (Exception e) {
-            throw new InvalidParameterException("Bad file path" + e);
-        }
-        
-        
-        char slimeAscii = Slime.ASCII;
-        char playerAscii = Player.ASCII;
-        char wallAscii = Wall.ASCII;
-        
-        String[] rowChars = templateText.split("\n");
-        for (int i = 0; i < this.gameMap.length; i += 1) {
-            for (int j = 0; j < this.gameMap[i].length; j += 1) {
-
-                char tempChar = rowChars[i].charAt(j);
-
-                if (tempChar == ' ') {
-                    gameMap[i][j] = null;
-
-                } else if (tempChar == wallAscii) {
-                    gameMap[i][j] = new Wall();
-
-                } else if (tempChar == slimeAscii) {
-                    gameMap[i][j] = new Slime(this);
-                    listObj.add(gameMap[i][j]);
-                } else if (tempChar == playerAscii) {
-                    player = new Player(i,j);
-                    gameMap[i][j] = player;
-                    listObj.add(gameMap[i][j]);
-                }
-            }
-        }
-    }
-    
     /** Code for an inaccessible location on the heat map. */
     public static final int INACCESSIBLE = 999;
     
@@ -125,15 +77,56 @@ public class Map {
     
     /**
      * Generates a map based off of a template.
-     * @param width This is the width of this map.
-     * @param height This is the height of this map.
-     * @param mapTemplate this is a notepad document filled with ascii characters for 
+     * 
+     * @param templateFilename the filename of the level data (a text file)
      */
-    
-    public Map(final int width, final int height, final String mapTemplateFile) {
-        this.gameMap = new GameObject[width][height];
-        this.heatMap = new int[width][height];
-        this.templateReader(mapTemplateFile);
+    public Map(final String templateFilename) {
+        String templateText;
+        try {
+            String templatePath = Map.class.getClassLoader()
+                    .getResource(templateFilename).getFile();
+            
+            templatePath = new URI(templatePath).getPath();
+            File templateFile = new File(templatePath);
+            Scanner templateScanner = new Scanner(templateFile, "UTF-8");
+            templateText = templateScanner.useDelimiter("\\A").next();
+            templateScanner.close();
+        } catch (Exception e) {
+            throw new InvalidParameterException("Bad file path" + e);
+        }
+        
+        String[] rowChars = templateText.split("\n");
+        
+        mapWidth = rowChars[0].length();
+        mapHeight = rowChars.length;
+        
+        for (int y = 0; y < this.gameMap.length; y += 1) {
+            for (int x = 0; x < this.gameMap[x].length; x += 1) {
+
+                char tempChar = rowChars[y].charAt(x);
+
+                if (tempChar == ' ') {
+                    gameMap[x][y] = null;
+
+                } else if (tempChar == Wall.ASCII) {
+                    gameMap[x][y] = new Wall();
+
+                } else if (tempChar == Slime.ASCII) {
+                    gameMap[x][y] = new Slime(this);
+                    listObj.add(gameMap[x][y]);
+                } else if (tempChar == Player.ASCII) {
+                    if (player != null) {
+                        throw new IllegalArgumentException("Level data has two or more players!");
+                    }
+                    player = new Player(x, y);
+                    gameMap[x][y] = player;
+                    listObj.add(gameMap[x][y]);
+                }
+            }
+        }
+        if (player == null) {
+            throw new IllegalArgumentException("Level data has no player!");
+        }
     }
 
     public int getMapWidth() {
