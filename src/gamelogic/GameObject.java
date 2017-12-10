@@ -30,4 +30,7 @@ public abstract class GameObject {
     public void printAscii() {
         System.out.print(this.ascii + " ");
     }
+    public char getAscii() {
+        return this.ascii;
+    }
 }

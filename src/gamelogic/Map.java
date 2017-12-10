@@ -201,5 +201,21 @@ public class Map {
             System.out.println();
         }
     }
+    
+    /** Prints the map to the console. */
+    public String processToGui() {
+        StringBuffer guiAccumulator = new StringBuffer();
+        for (int y = 0; y < mapHeight; y ++) {
+            for (int x = 0; x < mapWidth; x++) {
+                if (gameMap[x][y] == null) {
+                    guiAccumulator.append(' ');
+                } else {
+                    guiAccumulator.append(gameMap[x][y].getAscii());
+                }
+            }
+            guiAccumulator.append("\n");
+        }
+        return guiAccumulator.toString();
+    }
 
 }

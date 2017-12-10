@@ -17,17 +17,25 @@ public class MyKeyListener extends KeyAdapter implements KeyListener {
         if (key == KeyEvent.VK_ESCAPE) {
             System.exit(0);
         }
-        if (key == KeyEvent.VK_W) {
-            Controller.movePlayer(Util.NORTH);
+        if (Controller.isStarted() && key == KeyEvent.VK_W) {
+            if (Controller.isPlayerTurn()) {
+                Controller.movePlayer(Util.NORTH);
+            }
         }
-        if (key == KeyEvent.VK_A) {
-            Controller.movePlayer(Util.WEST);
+        if (Controller.isStarted() && key == KeyEvent.VK_A) {
+            if (Controller.isPlayerTurn()) {
+                Controller.movePlayer(Util.WEST);
+            }
         }
-        if (key == KeyEvent.VK_S) {
-            Controller.movePlayer(Util.SOUTH);
+        if (Controller.isStarted() && key == KeyEvent.VK_S) {
+            if (Controller.isPlayerTurn()) {
+                Controller.movePlayer(Util.SOUTH);
+            }
         }
-        if (key == KeyEvent.VK_D) {
-            Controller.movePlayer(Util.EAST);
+        if (Controller.isStarted() && key == KeyEvent.VK_D) {
+            if (Controller.isPlayerTurn()) {
+                Controller.movePlayer(Util.EAST);
+            }
         }
     }
 
