@@ -28,24 +28,20 @@ public abstract class Mob extends GameObject {
     public int findPlayer() {
         int[] dirs = new int[4];
         /*
+         * // Stupid pathfinding.
          * dirs[NORTH] = this.y - player.getY(); dirs[EAST] = player.getX() - this.x;
          * dirs[SOUTH] = player.getY() - this.x; dirs[WEST] = this.x - player.getX();
          * 
-         * 
          * return Util.findIndexOfMax(dirs);
          */
+        
+        // Smart pathfinding.
         dirs[NORTH] = world.heatMap[x][y - 1];
         dirs[EAST] = world.heatMap[x + 1][y];
         dirs[SOUTH] = world.heatMap[x][y + 1];
         dirs[WEST] = world.heatMap[x - 1][y];
 
-        int ind = 0;
-        for (int i = 0; i < dirs.length; i += 1) {
-            if (dirs[ind] > dirs[i]) {
-                ind = i;
-            }
-        }
-        return ind;
+        return Util.findIndexOfMin(dirs);
     }
 
     /** Attacks the player. */
@@ -110,10 +106,7 @@ public abstract class Mob extends GameObject {
 
     /** Attacks the player. */
     public boolean attack(final int x, final int y, final int distance) {
-        boolean na = false;
-        boolean ea = false;
-        boolean sa = false;
-        boolean wa = false;
+
         if (distance > attackRange) {
             return false;
         }
@@ -126,18 +119,26 @@ public abstract class Mob extends GameObject {
         }
 
         if (x + 1 < world.getMapWidth()) {
-            na = this.attackNorth(x + 1, y, distance + 1);
+            if (this.attackNorth(x + 1, y, distance + 1)) {
+                return true;
+            }
         }
         if (x - 1 >= 0) {
-            ea = this.attackEast(x - 1, y, distance + 1);
+            if (this.attackEast(x - 1, y, distance + 1)) {
+                return true;
+            }
         }
         if (y + 1 < world.getMapHeight()) {
-            sa = this.attackSouth(x, y + 1, distance + 1);
+            if (this.attackSouth(x, y + 1, distance + 1)) {
+                return true;
+            }
         }
         if (y - 1 >= 0) {
-            wa = this.attackWest(x, y - 1, distance + 1);
+            if (this.attackWest(x, y - 1, distance + 1)) {
+                return true;
+            }
         }
-        return na || sa || wa || ea;
+        return false;
 
     }
 
