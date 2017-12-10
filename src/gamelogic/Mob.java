@@ -13,12 +13,8 @@ public abstract class Mob extends GameObject {
     protected boolean isHostile;
 
     protected int attackRange;
-
-    // Codes for directions
-    public static int NORTH = 0;
-    public static int EAST = 1;
-    public static int SOUTH = 2;
-    public static int WEST = 3;
+    
+    protected String name;
 
     /**
      * @return This will return an integer based on which step will lead to the
@@ -36,10 +32,10 @@ public abstract class Mob extends GameObject {
          */
         
         // Smart pathfinding.
-        dirs[NORTH] = world.heatMap[x][y - 1];
-        dirs[EAST] = world.heatMap[x + 1][y];
-        dirs[SOUTH] = world.heatMap[x][y + 1];
-        dirs[WEST] = world.heatMap[x - 1][y];
+        dirs[Util.NORTH] = world.heatMap[x][y - 1];
+        dirs[Util.EAST] = world.heatMap[x + 1][y];
+        dirs[Util.SOUTH] = world.heatMap[x][y + 1];
+        dirs[Util.WEST] = world.heatMap[x - 1][y];
 
         return Util.findIndexOfMin(dirs);
     }
