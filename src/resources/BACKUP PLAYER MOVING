@@ -1,0 +1,17 @@
+
+    public boolean movePlayer(int move, Player player) {
+        int newX = Util.newX(player.getX(), move);
+        int newY = Util.newY(player.getY(), move);
+        this.gameMap[player.getX()][player.getY()] = null;
+        if (this.gameMap[newX][newY] instanceof Mob) {
+            for (int i = 0; i < this.enemies.size(); i += 1) {
+                if (this.enemies.get(i).x == this.gameMap[newX][newY].x
+                        && this.enemies.get(i).y == this.gameMap[newX][newY].y) {
+                    this.enemies.remove(i);
+                    System.out.println("You killed a ");
+                }
+            }
+        }
+        this.gameMap[newX][newY] = player;
+        return true;
+    }
