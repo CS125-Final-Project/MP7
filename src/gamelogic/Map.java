@@ -116,7 +116,7 @@ public class Map {
                     gameMap[x][y] = new Wall();
 
                 } else if (tempChar == Slime.ASCII) {
-                    gameMap[x][y] = new Slime(x,y,this);
+                    gameMap[x][y] = new Slime(x, y, this);
                     enemies.add(gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
@@ -140,6 +140,16 @@ public class Map {
     public int getMapHeight() {
         return mapHeight;
     }
-
+    
+    /** Prints the map to the console. */
+    public void printToConsole() {
+        System.out.println();
+        for (int y = 0; y < mapHeight; y ++) {
+            for (int x = 0; x < mapHeight; x++) {
+                // print stuff
+            }
+            System.out.println();
+        }
+    }
 
 }
