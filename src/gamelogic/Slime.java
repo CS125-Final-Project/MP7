@@ -25,7 +25,7 @@ public class Slime extends Mob {
      */
     public Slime(int xPos, int yPos, final Map exist) {
         ascii = ASCII;
-        this.attackRange = 0;
+        this.attackRange = 1;
         this.world = exist;
         this.x = xPos;
         this.y = yPos;
