@@ -49,11 +49,7 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attack(final int x, final int y, final int distance) {
-        boolean na;
-        boolean ea;
-        boolean sa;
-        boolean wa;
+    public boolean attackNorth(final int x, final int y, final int distance) {
         if (distance > attackRange) {
             return false;
         }
@@ -61,19 +57,86 @@ public abstract class Mob extends GameObject {
             ((Player) world.gameMap[x][y]).setAlive(false);
             return true;
         }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
+        return this.attackNorth(x, y-1, distance+1);
+    }
+    /** Attacks the player. */
+    public boolean attackEast(final int x, final int y, final int distance) {
+        if (distance > attackRange) {
+            return false;
+        }
+        if (world.gameMap[x][y] instanceof Player) {
+            ((Player) world.gameMap[x][y]).setAlive(false);
+            return true;
+        }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
+        return this.attackEast(x+1, y, distance+1);
+    }
+    
+    /** Attacks the player. */
+    public boolean attackSouth(final int x, final int y, final int distance) {
+        if (distance > attackRange) {
+            return false;
+        }
+        if (world.gameMap[x][y] instanceof Player) {
+            ((Player) world.gameMap[x][y]).setAlive(false);
+            return true;
+        }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
+        return this.attackSouth(x, y+1, distance + 1);
+    }
+    /** Attacks the player. */
+    public boolean attackWest(final int x, final int y, final int distance) {
+        if (distance > attackRange) {
+            return false;
+        }
+        if (world.gameMap[x][y] instanceof Player) {
+            ((Player) world.gameMap[x][y]).setAlive(false);
+            return true;
+        }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
+        return this.attackWest(x-1, y, distance + 1);
+    }
+    
+    
+    /** Attacks the player. */
+    public boolean attack(final int x, final int y, final int distance) {
+        boolean na = false;
+        boolean ea = false;
+        boolean sa = false;
+        boolean wa = false;
+        if (distance > attackRange) {
+            return false;
+        }
+        if (world.gameMap[x][y] instanceof Player) {
+            ((Player) world.gameMap[x][y]).setAlive(false);
+            return true;
+        }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
 
         if (x + 1 < world.getMapWidth()) {
-            na = this.attack(x + 1, y, distance + 1);
+            na = this.attackNorth(x + 1, y, distance + 1);
         }
         if (x - 1 >= 0) {
-            ea = this.attack(x - 1, y, distance + 1);
+            ea = this.attackEast(x - 1, y, distance + 1);
         }
         if (y + 1 < world.getMapHeight()) {
-            sa = this.attack(x, y + 1, distance + 1);
+            sa = this.attackSouth(x, y + 1, distance + 1);
         }
         if (y - 1 >= 0) {
-            wa = this.attack(x, y - 1, distance + 1);
+            wa = this.attackWest(x, y - 1, distance + 1);
         }
+        return na|| sa || wa || ea;
 
     }
 
