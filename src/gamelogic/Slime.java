@@ -12,7 +12,6 @@ package gamelogic;
  *
  */
 public class Slime extends Mob {
-
     public static final char ASCII = 'S';
     public void move() {
         int moveDir = this.findPlayer();
@@ -31,5 +30,6 @@ public class Slime extends Mob {
         this.y = yPos;
         // TODO Auto-generated constructor stub
     }
+    
 
 }

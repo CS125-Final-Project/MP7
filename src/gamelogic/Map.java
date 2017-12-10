@@ -6,7 +6,6 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Map {
     private int mapHeight;
     private int mapWidth;
@@ -14,11 +13,11 @@ public class Map {
     public GameObject[][] gameMap;
     private ArrayList<GameObject> enemies = new ArrayList<GameObject>();
     private Player player;
-    
+
     public ArrayList<GameObject> getEnemies() {
         return enemies;
     }
-    
+
     public Player getPlayer() {
         return player;
     }
@@ -26,7 +25,8 @@ public class Map {
     /**
      * Checks if a move is valid for this map.
      * 
-     * @param move the move to check
+     * @param move
+     *            the move to check
      * @return true iff it is a valid move
      */
     public boolean checkMove(int move) {
@@ -35,21 +35,39 @@ public class Map {
         }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight
-                || gameMap[newX][newY] instanceof Wall) {
+        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight || gameMap[newX][newY] instanceof Wall) {
             return false;
         }
         return true;
     }
-    
+
+    public boolean movePlayer(int move, Player player) {
+        int newX = Util.newX(player.getX(), move);
+        int newY = Util.newY(player.getY(), move);
+        this.gameMap[player.getX()][player.getY()] = null;
+        if (this.gameMap[newX][newY] instanceof Mob) {
+            for (int i = 0; i < this.enemies.size(); i += 1) {
+                if (this.enemies.get(i).x == this.gameMap[newX][newY].x
+                        && this.enemies.get(i).y == this.gameMap[newX][newY].y) {
+                    this.enemies.remove(i);
+                    System.out.println("You killed a ");
+                }
+            }
+        }
+        this.gameMap[newX][newY] = player;
+        return true;
+    }
+
     /** Code for an inaccessible location on the heat map. */
     public static final int INACCESSIBLE = 999;
-    
+
     /**
      * Generates a "heat map", where the value is the distance from the player.
      * 
-     * @param playerX the x coordinate of the player
-     * @param playerY the y coordinate of the player
+     * @param playerX
+     *            the x coordinate of the player
+     * @param playerY
+     *            the y coordinate of the player
      */
     public void genHeatMap(final int playerX, final int playerY) {
         for (int x = 0; x < getMapWidth(); x++) {
@@ -59,12 +77,12 @@ public class Map {
         }
         generateHeatMap(playerX, playerY, 0);
     }
-    
+
     private void generateHeatMap(final int x, final int y, final int distance) {
         if (gameMap[x][y] instanceof Wall) {
             return;
-        } 
-            
+        }
+
         if (x + 1 < getMapWidth() && heatMap[x + 1][y] > distance + 1) {
             this.generateHeatMap(x + 1, y, distance + 1);
         }
@@ -78,18 +96,18 @@ public class Map {
             this.generateHeatMap(x, y - 1, distance + 1);
         }
     }
-    
+
     /**
      * Generates a map based off of a template.
      * 
-     * @param templateFilename the filename of the level data (a text file)
+     * @param templateFilename
+     *            the filename of the level data (a text file)
      */
     public Map(final String templateFilename) {
         String templateText;
         try {
-            String templatePath = Map.class.getClassLoader()
-                    .getResource(templateFilename).getFile();
-            
+            String templatePath = Map.class.getClassLoader().getResource(templateFilename).getFile();
+
             templatePath = new URI(templatePath).getPath();
             File templateFile = new File(templatePath);
             Scanner templateScanner = new Scanner(templateFile, "UTF-8");
@@ -98,12 +116,12 @@ public class Map {
         } catch (Exception e) {
             throw new InvalidParameterException("Bad file path" + e);
         }
-        
+
         String[] rowChars = templateText.split("\n");
-        
+
         mapWidth = rowChars[0].length();
         mapHeight = rowChars.length;
-        
+
         for (int y = 0; y < this.gameMap.length; y += 1) {
             for (int x = 0; x < this.gameMap[x].length; x += 1) {
 
@@ -116,7 +134,7 @@ public class Map {
                     gameMap[x][y] = new Wall();
 
                 } else if (tempChar == Slime.ASCII) {
-                    gameMap[x][y] = new Slime(x,y,this);
+                    gameMap[x][y] = new Slime(x, y, this);
                     enemies.add(gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
@@ -140,6 +158,5 @@ public class Map {
     public int getMapHeight() {
         return mapHeight;
     }
-
 
 }
