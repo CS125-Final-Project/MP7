@@ -2,8 +2,12 @@ package gamelogic;
 
 public class Controller {
 
+    /**
+     * Runs the game.
+     * @param args unused
+     */
     public static void main(final String[] args) {
-        Map map = new Map(10,10,"P");
+        Map map = new Map(10, 10, "Map_Data.txt");
         Player player = map.getPlayer();
         while (player.isAlive()) {
             // get player's next move
