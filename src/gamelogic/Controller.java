@@ -28,10 +28,13 @@ public class Controller {
      * 
      * @param direction
      *            the direction to attempt to move
+     * @throws InterruptedException if Thread.Sleep is bad
      */
-    public static void movePlayer(int direction) {
+    public static void movePlayer(int direction) throws InterruptedException {
         if (map.checkMove(direction)) {
             // does some stuff
+            map.printToConsole();
+            Thread.sleep(1000);
             moveEnemies();
         }
         // don't do anything if the move was invalid
@@ -46,14 +49,7 @@ public class Controller {
             Slime temp = ((Slime) map.getEnemies().get(i));
             temp.move();
         }
-    }
-    
-    private static void printUpdate() {
-        for (int x = 0; x < map.getMapWidth(); x += 1) {
-            for (int y = 0; y < map.getMapWidth(); y += 1) {
-                map.gameMap[x][y].printAscii();
-            }
-        }
+        map.printToConsole();
     }
 
     /*

@@ -146,7 +146,7 @@ public class Map {
         System.out.println();
         for (int y = 0; y < mapHeight; y ++) {
             for (int x = 0; x < mapHeight; x++) {
-                // print stuff
+                gameMap[x][y].printAscii();
             }
             System.out.println();
         }

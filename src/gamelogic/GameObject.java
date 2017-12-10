@@ -28,6 +28,6 @@ public abstract class GameObject {
      * This method prints an obstacle's ascii character.
      */
     public void printAscii() {
-        System.out.print(this.ascii);
+        System.out.print(this.ascii + " ");
     }
 }
