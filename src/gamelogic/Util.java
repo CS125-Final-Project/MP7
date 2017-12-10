@@ -32,10 +32,10 @@ public class Util {
     }
     
     // Codes for directions
-    public static int NORTH = 0;
-    public static int EAST = 1;
-    public static int SOUTH = 2;
-    public static int WEST = 3;
+    public static final int NORTH = 0;
+    public static final int EAST = 1;
+    public static final int SOUTH = 2;
+    public static final int WEST = 3;
     
     /**
      * Returns the new x-coordinate after moving in the specified direction.
