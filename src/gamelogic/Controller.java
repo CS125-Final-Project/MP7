@@ -1,5 +1,7 @@
 package gamelogic;
 
+import javax.swing.JFrame;
+
 public class Controller {
 
     /**
@@ -9,9 +11,11 @@ public class Controller {
      *            unused
      */
     public static void main(final String[] args) {
-        Controller.map = new Map("Map_Data.txt");
-        Controller.player = map.getPlayer();
-        Controller.input = new MyKeyListener();
+        map = new Map("Map_Data.txt");
+        player = map.getPlayer();
+        JFrame listening = new JFrame();
+        listening.addKeyListener(new MyKeyListener());
+        listening.setVisible(true);
 
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
@@ -33,6 +37,14 @@ public class Controller {
     public static void movePlayer(int direction) {
         if (map.checkMove(direction)) {
             // does some stuff
+            map.movePlayer(direction);
+            map.printToConsole();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             moveEnemies();
         }
         // don't do anything if the move was invalid

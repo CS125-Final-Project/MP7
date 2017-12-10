@@ -49,7 +49,7 @@ public class Map {
      * @return This confirms that the move has occurred.
      */
     
-    public boolean movePlayer(int move, Player player) {
+    public boolean movePlayer(int move) {
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
         this.gameMap[player.getX()][player.getY()] = null;
