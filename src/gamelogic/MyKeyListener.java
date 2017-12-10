@@ -23,16 +23,16 @@ public class MyKeyListener extends KeyAdapter implements KeyListener {
         // TODO Auto-generated method stub
         int key = e.getKeyCode();
         if (key == KeyEvent.VK_W) {
-            
+            Controller.movePlayer(Util.NORTH);
         }
         if (key == KeyEvent.VK_A) {
-            
+            Controller.movePlayer(Util.WEST);
         }
         if (key == KeyEvent.VK_S) {
-            
+            Controller.movePlayer(Util.SOUTH);
         }
         if (key == KeyEvent.VK_D) {
-            
+            Controller.movePlayer(Util.EAST);
         }
     }
 

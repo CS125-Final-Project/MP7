@@ -3,7 +3,7 @@ package gamelogic;
 public class Controller {
 
     /**
-     * Runs the game.
+     * Starts the game.
      * @param args unused
      */
     public static void main(final String[] args) {
