@@ -42,11 +42,11 @@ public class Map {
      * this function reads a text file and generates a level based on a text file.
      * @param template The text file name REMEMBER TO ADD ".txt" TO THE END OF THE FILE NAME.
      */
-    public void templateReader(final String template) {
+    public void templateReader(final String templateFilename) {
         String templateText;
         try {
             String templatePath = Map.class.getClassLoader()
-                    .getResource(template).getFile();
+                    .getResource(templateFilename).getFile();
             
             templatePath = new URI(templatePath).getPath();
             File templateFile = new File(templatePath);
@@ -130,10 +130,10 @@ public class Map {
      * @param mapTemplate this is a notepad document filled with ascii characters for 
      */
     
-    public Map(final int width, final int height, final String mapTemplate) {
+    public Map(final int width, final int height, final String mapTemplateFile) {
         this.gameMap = new GameObject[width][height];
         this.heatMap = new int[width][height];
-        this.templateReader(mapTemplate);
+        this.templateReader(mapTemplateFile);
     }
 
     public int getMapWidth() {
