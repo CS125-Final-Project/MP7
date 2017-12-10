@@ -13,12 +13,14 @@ package gamelogic;
  */
 public class Slime extends Mob {
 
+    public static final char ASCII = 'S';
+    
     /**
      * .
      * 
      */
     public Slime(final Map exist) {
-        Slime.ascii = 'S';
+        ascii = ASCII;
         this.attackRange = 0;
         this.world = exist;
         // TODO Auto-generated constructor stub

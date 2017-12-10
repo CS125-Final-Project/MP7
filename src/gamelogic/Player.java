@@ -11,7 +11,7 @@ package gamelogic;
 public class Player extends GameObject {
     
     /** Character to represent the player. */
-    static char ascii = 'P';
+    final public static char ASCII = 'P';
     
     public int getX() {
         return x;
@@ -38,7 +38,7 @@ public class Player extends GameObject {
     /** Constructor for player. */
     public Player(final int startX, final int startY) {
         isAlive = true;
-        ascii = 'P';
+        ascii = ASCII;
         x = startX;
         y = startY;
     }
