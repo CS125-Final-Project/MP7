@@ -1,5 +1,10 @@
 package gamelogic;
 
+import java.io.File;
+import java.net.URI;
+import java.security.InvalidParameterException;
+import java.util.Scanner;
+
 public class Util {
     /**
      * Finds the index of the maximum value of an integer array.
@@ -67,5 +72,27 @@ public class Util {
             return oldY - 1;
         }
         return oldY;
+    }
+    /**
+     * This will retrieve a text file and present a string.
+     * @param templateFilename the name of the file include extension.
+     * @return The text file as a string delineated by new lines.
+     */
+    
+    public static String getFile(String templateFilename) {
+        String templateText;
+        try {
+            String templatePath = Map.class.getClassLoader()
+                    .getResource(templateFilename).getFile();
+    
+            templatePath = new URI(templatePath).getPath();
+            File templateFile = new File(templatePath);
+            Scanner templateScanner = new Scanner(templateFile, "UTF-8");
+            templateText = templateScanner.useDelimiter("\\A").next();
+            templateScanner.close();
+        } catch (Exception e) {
+            throw new InvalidParameterException("Bad file path" + e);
+        }
+        return templateText;
     }
 }

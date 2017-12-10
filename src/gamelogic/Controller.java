@@ -11,11 +11,16 @@ public class Controller {
      *            unused
      */
     public static void main(final String[] args) {
-        map = new Map("Map_Data.txt");
-        player = map.getPlayer();
         JFrame listening = new JFrame();
         listening.addKeyListener(new MyKeyListener());
         listening.setVisible(true);
+        System.out.print(Util.getFile("Title_Screen.txt"));
+        while (started) {
+
+        }
+        map = new Map("Map_Data.txt");
+        player = map.getPlayer();
+
         map.printToConsole();
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
@@ -23,9 +28,18 @@ public class Controller {
          */
     }
 
+    private static boolean started = false;
     private static Map map;
     private static Player player;
     private static MyKeyListener input;
+
+    public static void setStarted(boolean startedNew) {
+        started = startedNew;
+    }
+
+    public static boolean isStarted() {
+        return started;
+    }
 
     /**
      * Tries to move the player in the specified direction. If successful, the
@@ -62,8 +76,6 @@ public class Controller {
         }
         map.printToConsole();
     }
-    
-
 
     /*
      * private static int getMove() { return -1; }
