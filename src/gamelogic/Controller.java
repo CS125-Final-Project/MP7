@@ -1,6 +1,14 @@
 package gamelogic;
 
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Label;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class Controller {
 
@@ -11,23 +19,42 @@ public class Controller {
      *            unused
      */
     public static void main(final String[] args) {
-        JFrame listening = new JFrame();
-        listening.addKeyListener(new MyKeyListener());
-        listening.setVisible(true);
-        System.out.print(Util.getFile("Title_Screen.txt"));
-        while (started) {
+        title = new JFrame();
+        
+        JTextArea ascii = new JTextArea(Util.getFile("Title_Screen.txt"),50,50);
+        JPanel stuff = new JPanel();
+        title.add(stuff);
+        stuff.add(ascii);
+        ascii.setFont(new Font("Courier", Font.PLAIN, 10));
+        ascii.setLineWrap(true);
+        ascii.setEditable(false);
+        title.addKeyListener(new MyKeyListener());
+        //title.add(ascii);  
+        title.setVisible(true);
 
-        }
-        map = new Map("Map_Data.txt");
-        player = map.getPlayer();
-
-        map.printToConsole();
+        
+        // map.printToConsole();
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
          */
     }
 
+    public static void startGame() {
+        if (started == true) {
+            return;
+        }
+        started = true;
+        title.setVisible(false);
+        map = new Map("Map_Data.txt");
+        player = map.getPlayer();
+
+        JFrame listening = new JFrame();
+        listening.addKeyListener(new MyKeyListener());
+        listening.setVisible(true);
+    }
+    
+    private static JFrame title;
     private static boolean started = false;
     private static Map map;
     private static Player player;
