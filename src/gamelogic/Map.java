@@ -10,7 +10,7 @@ public class Map {
     private int mapHeight;
     private int mapWidth;
     public int[][] heatMap;
-    public GameObject[][] gameMap;
+    private GameObject[][] gameMap;
     private ArrayList<GameObject> enemies = new ArrayList<GameObject>();
     private Player player;
     
@@ -61,10 +61,11 @@ public class Map {
                     System.out.println("You killed a ");
                 }
             }
+        } else {
+            this.gameMap[newX][newY] = player;
+            player.x = newX;
+            player.y = newY;
         }
-        this.gameMap[newX][newY] = player;
-        player.x = newX;
-        player.y = newY;
         return true;
     }
 
