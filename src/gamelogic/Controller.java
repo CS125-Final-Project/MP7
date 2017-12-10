@@ -27,6 +27,11 @@ public class Controller {
     
     public static void movePlayer(int direction) {
         // does some stuff
+        moveEnemies();
+    }
+    
+    private static void moveEnemies() {
+        
     }
     
     /*
