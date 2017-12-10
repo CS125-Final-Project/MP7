@@ -58,9 +58,9 @@ public class Map {
         }
         
         
-        char slimeAscii = Slime.ascii;
-        char playerAscii = Player.ascii;
-        char wallAscii = Wall.ascii;
+        char slimeAscii = Slime.ASCII;
+        char playerAscii = Player.ASCII;
+        char wallAscii = Wall.ASCII;
         
         String[] rowChars = templateText.split("\n");
         for (int i = 0; i < this.gameMap.length; i += 1) {
