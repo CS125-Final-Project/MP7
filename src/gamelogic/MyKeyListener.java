@@ -10,6 +10,13 @@ public class MyKeyListener extends KeyAdapter implements KeyListener {
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         int key = e.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+
+            Controller.startGame();
+        }
+        if (key == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
         if (key == KeyEvent.VK_W) {
             Controller.movePlayer(Util.NORTH);
         }
@@ -34,6 +41,12 @@ public class MyKeyListener extends KeyAdapter implements KeyListener {
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
         int key = e.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            Controller.startGame();
+        }
+        if (key == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
         if (key == KeyEvent.VK_W) {
             Controller.movePlayer(Util.NORTH);
         }
