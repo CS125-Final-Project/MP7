@@ -127,9 +127,9 @@ public class Map {
         
         mapWidth = rowChars[0].length();
         mapHeight = rowChars.length;
-        
-        for (int y = 0; y < this.gameMap.length; y += 1) {
-            for (int x = 0; x < this.gameMap[x].length; x += 1) {
+        this.gameMap = new GameObject[mapWidth][mapHeight];
+        for (int x = 0; x < this.gameMap.length; x += 1) {
+            for (int y = 0; y < this.gameMap[x].length; y += 1) {
 
                 char tempChar = rowChars[y].charAt(x);
 

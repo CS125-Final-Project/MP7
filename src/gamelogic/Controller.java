@@ -12,6 +12,7 @@ public class Controller {
         Controller.map = new Map("Map_Data.txt");
         Controller.player = map.getPlayer();
         Controller.input = new MyKeyListener();
+
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
