@@ -70,16 +70,20 @@ public class Map {
     public boolean movePlayer(int move) {
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        gameMap[player.getX()][player.getY()] = null;
         if (gameMap[newX][newY] instanceof Mob) {
             for (int i = 0; i < enemies.size(); i += 1) {
                 if (enemies.get(i).x == gameMap[newX][newY].x
                         && enemies.get(i).y == gameMap[newX][newY].y) {
                     System.out.println("You killed a " + enemies.get(i).getName());
                     enemies.remove(i);
+                    if (enemies.size() == 0) {
+                        System.out.println("You killed all the things!");
+                    }
                 }
             }
+            gameMap[newX][newY] = null;
         } else {
+            gameMap[player.x][player.y] = null;
             gameMap[newX][newY] = player;
             player.x = newX;
             player.y = newY;
