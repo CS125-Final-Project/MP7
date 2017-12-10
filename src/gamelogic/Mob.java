@@ -45,7 +45,7 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attackNorth(final int x, final int y, final int distance) {
+    protected boolean attackNorth(final int x, final int y, final int distance) {
         if (distance > attackRange) {
             return false;
         }
@@ -60,7 +60,7 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attackEast(final int x, final int y, final int distance) {
+    protected boolean attackEast(final int x, final int y, final int distance) {
         if (distance > attackRange) {
             return false;
         }
@@ -75,7 +75,7 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attackSouth(final int x, final int y, final int distance) {
+    protected boolean attackSouth(final int x, final int y, final int distance) {
         if (distance > attackRange) {
             return false;
         }
@@ -90,7 +90,7 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attackWest(final int x, final int y, final int distance) {
+    protected boolean attackWest(final int x, final int y, final int distance) {
         if (distance > attackRange) {
             return false;
         }
