@@ -47,6 +47,14 @@ public class Controller {
             temp.move();
         }
     }
+    
+    private static void printUpdate() {
+        for (int x = 0; x < map.getMapWidth(); x += 1) {
+            for (int y = 0; y < map.getMapWidth(); y += 1) {
+                map.gameMap[x][y].printAscii();
+            }
+        }
+    }
 
     /*
      * private static int getMove() { return -1; }
