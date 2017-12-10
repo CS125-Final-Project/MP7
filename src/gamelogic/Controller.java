@@ -16,7 +16,7 @@ public class Controller {
         JFrame listening = new JFrame();
         listening.addKeyListener(new MyKeyListener());
         listening.setVisible(true);
-
+        map.printToConsole();
         /*
          * while (player.isAlive()) { // get player's next move int nextMove = -1; while
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
@@ -52,13 +52,14 @@ public class Controller {
 
     private static void moveEnemies() {
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
-            Slime temp = ((Slime) map.getEnemies().get(i));
+            Mob temp = ((Mob) map.getEnemies().get(i));
             temp.attack(temp.x, temp.y, temp.attackRange);
         }
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
-            Slime temp = ((Slime) map.getEnemies().get(i));
+            Mob temp = ((Mob) map.getEnemies().get(i));
             temp.move();
         }
+        map.printToConsole();
     }
     
 

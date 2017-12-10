@@ -15,8 +15,10 @@ public class Slime extends Mob {
     public static final char ASCII = 'S';
     public void move() {
         int moveDir = this.findPlayer();
+        world.gameMap[this.x][this.y] = null;
         this.x = Util.newX(this.x, moveDir);
-        this.x = Util.newY(this.y, moveDir);
+        this.y = Util.newY(this.y, moveDir);
+        world.gameMap[this.x][this.y] = this;
     }
     /**
      * .

@@ -63,6 +63,8 @@ public class Map {
             }
         }
         this.gameMap[newX][newY] = player;
+        player.x = newX;
+        player.y = newY;
         return true;
     }
 
@@ -71,31 +73,28 @@ public class Map {
     
     /**
      * Generates a "heat map", where the value is the distance from the player.
-     * 
-     * @param playerX the x coordinate of the player
-     * @param playerY the y coordinate of the player
      */
-    public void genHeatMap(final int playerX, final int playerY) {
-        for (int x = 0; x < getMapWidth(); x++) {
+    public void genHeatMap() {
+        for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 heatMap[x][y] = INACCESSIBLE;
             }
         }
-        generateHeatMap(playerX, playerY, 0);
+        generateHeatMap(player.getX(), player.getY(), 0);
     }
     
     private void generateHeatMap(final int x, final int y, final int distance) {
         if (gameMap[x][y] instanceof Wall) {
             return;
         } 
-            
-        if (x + 1 < getMapWidth() && heatMap[x + 1][y] > distance + 1) {
+        heatMap[x][y] = distance;
+        if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
             this.generateHeatMap(x + 1, y, distance + 1);
         }
         if (x - 1 >= 0 && heatMap[x - 1][y] > distance + 1) {
             this.generateHeatMap(x - 1, y, distance + 1);
         }
-        if (y + 1 < getMapWidth() && heatMap[x][y + 1] > distance + 1) {
+        if (y + 1 < mapHeight && heatMap[x][y + 1] > distance + 1) {
             this.generateHeatMap(x, y + 1, distance + 1);
         }
         if (y - 1 >= 0 && heatMap[x][y - 1] > distance + 1) {
@@ -128,6 +127,7 @@ public class Map {
         mapWidth = rowChars[0].length();
         mapHeight = rowChars.length;
         this.gameMap = new GameObject[mapWidth][mapHeight];
+        this.heatMap = new int[mapWidth][mapHeight];
         for (int x = 0; x < this.gameMap.length; x += 1) {
             for (int y = 0; y < this.gameMap[x].length; y += 1) {
 
@@ -148,7 +148,6 @@ public class Map {
                     }
                     player = new Player(x, y);
                     gameMap[x][y] = player;
-                    enemies.add(gameMap[x][y]);
                 }
             }
         }
@@ -169,8 +168,12 @@ public class Map {
     public void printToConsole() {
         System.out.println();
         for (int y = 0; y < mapHeight; y ++) {
-            for (int x = 0; x < mapHeight; x++) {
-                gameMap[x][y].printAscii();
+            for (int x = 0; x < mapWidth; x++) {
+                if (gameMap[x][y] == null) {
+                    System.out.print("  ");
+                } else {
+                    gameMap[x][y].printAscii();
+                }
             }
             System.out.println();
         }

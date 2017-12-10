@@ -24,7 +24,7 @@ public class Util {
     public static int findIndexOfMin(final int[] data) {
         int minIdx = 0;
         for (int i = 1; i < data.length; i++) {
-            if (data[i] > data[minIdx]) {
+            if (data[i] < data[minIdx]) {
                 minIdx = i;
             }
         }
