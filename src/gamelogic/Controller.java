@@ -26,15 +26,18 @@ public class Controller {
      * Tries to move the player in the specified direction. If successful, the
      * player moves, followed by the enemies' turn.
      * 
-     * @param direction
-     *            the direction to attempt to move
-     * @throws InterruptedException if Thread.Sleep is bad
+     * @param direction the direction to attempt to move
      */
-    public static void movePlayer(int direction) throws InterruptedException {
+    public static void movePlayer(int direction) {
         if (map.checkMove(direction)) {
             // does some stuff
             map.printToConsole();
-            Thread.sleep(1000);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             moveEnemies();
         }
         // don't do anything if the move was invalid
