@@ -180,24 +180,11 @@ public class Controller {
             }
             String slayer = moveEnemies();
             if (slayer == null && !hasWon && player.isAlive()) {
-                JFrame tempScreen = new JFrame();
-                tempScreen.addKeyListener(new MyKeyListener());
-                tempScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                tempScreen.setLayout(new FlowLayout());
-                tempScreen.setPreferredSize(new Dimension(XDIM, 720));
-                tempScreen.setMinimumSize(new Dimension(XDIM, 720));
-
-                JTextArea asciiScreen = new JTextArea(map.processToGui());
-                tempScreen.add(asciiScreen);
-                asciiScreen.setEditable(false);
+                asciiScreen.setEditable(true);
                 asciiScreen.addKeyListener(new MyKeyListener());
                 asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
-                gameScreen.setVisible(false);
-                gameScreen = tempScreen;
-                JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
-                controlGuide.addKeyListener(new MyKeyListener());
-                gameScreen.add(controlGuide);
-                
+                asciiScreen.setText(map.processToGui());
+                asciiScreen.setEditable(false);
                 gameScreen.setVisible(true);
             } else {
                 started = false;
