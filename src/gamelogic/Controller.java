@@ -173,7 +173,7 @@ public class Controller {
             map.movePlayer(direction);
             map.printToConsole();
             try {
-                Thread.sleep(500);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
