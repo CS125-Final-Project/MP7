@@ -52,7 +52,7 @@ public class Controller {
         winScreen.setVisible(false);
         deathScreen.setVisible(false);
         
-        map = new Map("Map_Data.txt");
+        map = new Map("Map_Data1.txt");
         player = map.getPlayer();
 
         gameScreen = new JFrame();
@@ -66,7 +66,7 @@ public class Controller {
         gameScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
-        asciiScreen.setFont(new Font("Courier", Font.PLAIN, 100));
+        asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
 
         JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
         gameScreen.add(controlGuide);
@@ -140,11 +140,13 @@ public class Controller {
     private static JFrame gameScreen = new JFrame();
     private static JFrame deathScreen = new JFrame();
     private static JFrame winScreen = new JFrame();
+    private static JTextArea asciiScreen = new JTextArea();
     private static boolean started = false;
     private static Map map;
     private static boolean hasWon = false;
     public static final int XDIM = 1366;
     public static final int YDIM = 766;
+    public static final int GAME_ASCII_SIZE = 20;
 
     private static boolean playerTurn = true;
 
@@ -188,7 +190,7 @@ public class Controller {
                 tempScreen.add(asciiScreen);
                 asciiScreen.setEditable(false);
                 asciiScreen.addKeyListener(new MyKeyListener());
-                asciiScreen.setFont(new Font("Courier", Font.PLAIN, 100));
+                asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
                 gameScreen.setVisible(false);
                 gameScreen = tempScreen;
                 JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));

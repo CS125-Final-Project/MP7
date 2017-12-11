@@ -35,8 +35,8 @@ public class Map {
         }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        if (newX < 0 || newY < 0 || newX >= mapWidth 
-                || newY >= mapHeight || gameMap[newX][newY] instanceof Wall) {
+        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight 
+                || gameMap[newX][newY] instanceof Wall) {
             return false;
         }
         return true;
@@ -57,7 +57,7 @@ public class Map {
      * @return true on success, false on failure.
      */
     public boolean moveObject(final int oldX, final int oldY, final int newX, final int newY) {
-        if (gameMap[newX][newY] instanceof Wall || gameMap[oldX][oldY] == null) {
+        if (gameMap[newX][newY] instanceof Wall || gameMap[oldX][oldY] != null) {
             return false;
         }
         gameMap[newX][newY] = gameMap[oldX][oldY];
@@ -160,10 +160,10 @@ public class Map {
         mapHeight = rowChars.length;
         gameMap = new GameObject[mapWidth][mapHeight];
         heatMap = new int[mapWidth][mapHeight];
-        for (int x = 0; x < gameMap.length; x += 1) {
-            for (int y = 0; y < gameMap[x].length; y += 1) {
+        for (int x = 0; x < mapWidth - 1; x += 1) {
+            for (int y = 0; y < mapHeight; y += 1) {
 
-                char tempChar = rowChars[y].charAt(x);
+                char tempChar = rowChars[x].charAt(y);
 
                 if (tempChar == ' ') {
                     gameMap[x][y] = null;
