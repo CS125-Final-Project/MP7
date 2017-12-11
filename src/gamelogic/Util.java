@@ -95,4 +95,40 @@ public class Util {
         }
         return templateText;
     }
+    
+    /** Prints the map to the console. */
+    public static String processToGui(final String templateFilename) {
+        String templateText;
+        try {
+            String templatePath = Map.class.getClassLoader()
+                    .getResource(templateFilename).getFile();
+    
+            templatePath = new URI(templatePath).getPath();
+            File templateFile = new File(templatePath);
+            Scanner templateScanner = new Scanner(templateFile, "UTF-8");
+            templateText = templateScanner.useDelimiter("\\A").next();
+            templateScanner.close();
+        } catch (Exception e) {
+            throw new InvalidParameterException("Bad file path" + e);
+        }
+        String[] temp = templateText.split("\n");
+        StringBuffer guiAccumulator = new StringBuffer();
+        for (int y = 0; y < temp.length; y++) {
+            for (int x = 0; x < 60; x += 1) {
+                guiAccumulator.append(" ");
+            }
+            for (int x = 2; x < temp[y].length(); x++) {
+
+                guiAccumulator.append("");
+                guiAccumulator.append(temp[y].charAt(x));
+                guiAccumulator.append("");
+                
+            }
+            guiAccumulator.deleteCharAt(guiAccumulator.length() - 1);
+            guiAccumulator.append("\n");
+        }
+        System.out.println(guiAccumulator.toString());
+        return guiAccumulator.toString();
+    }
+
 }

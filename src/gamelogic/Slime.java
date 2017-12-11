@@ -25,7 +25,7 @@ public class Slime extends Mob {
         } else {
             System.out.println("The slime says 'blurp'.");
         }
-        if (attack(this.xpos, this.ypos, attackRange, moveDir)) {
+        if (attack(this.xpos, this.ypos, attackRange)) {
             System.out.println("Player dead.");
             return this.name;
         } else {

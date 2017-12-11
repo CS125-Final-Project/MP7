@@ -28,13 +28,13 @@ public class Controller {
         title.add(ascii);
         title.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         title.setLayout(new FlowLayout());
-        title.setPreferredSize(new Dimension(1280, 720));
-        title.setMinimumSize(new Dimension(1280, 720));
+        title.setPreferredSize(new Dimension(XDIM, 720));
+        title.setMinimumSize(new Dimension(XDIM, 720));
         ascii.setFont(new Font("Courier", Font.PLAIN, 10));
         ascii.setLineWrap(true);
         ascii.setEditable(false);
-        ascii.setPreferredSize(new Dimension(1280, 720));
-        ascii.setMinimumSize(new Dimension(1280, 720));
+        ascii.setPreferredSize(new Dimension(XDIM, 720));
+        ascii.setMinimumSize(new Dimension(XDIM, 720));
         title.addKeyListener(new MyKeyListener());
 
         ascii.addKeyListener(new MyKeyListener());
@@ -49,6 +49,9 @@ public class Controller {
     public static void startGame() {
         started = true;
         title.setVisible(false);
+        winScreen.setVisible(false);
+        deathScreen.setVisible(false);
+        
         map = new Map("Map_Data.txt");
         player = map.getPlayer();
 
@@ -56,8 +59,8 @@ public class Controller {
         gameScreen.addKeyListener(new MyKeyListener());
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setLayout(new FlowLayout());
-        gameScreen.setPreferredSize(new Dimension(1280, 720));
-        gameScreen.setMinimumSize(new Dimension(1280, 720));
+        gameScreen.setPreferredSize(new Dimension(XDIM, 720));
+        gameScreen.setMinimumSize(new Dimension(XDIM, 720));
 
         JTextArea asciiScreen = new JTextArea(map.processToGui());
         gameScreen.add(asciiScreen);
@@ -86,16 +89,16 @@ public class Controller {
         deathScreen.addKeyListener(new MyKeyListener());
         deathScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         deathScreen.setLayout(new FlowLayout());
-        deathScreen.setPreferredSize(new Dimension(1280, 720));
-        deathScreen.setMinimumSize(new Dimension(1280, 720));
+        deathScreen.setPreferredSize(new Dimension(XDIM, 720));
+        deathScreen.setMinimumSize(new Dimension(XDIM, 720));
 
-        JTextArea asciiScreen = new JTextArea(Util.getFile(slayer + ".txt"));
+        JTextArea asciiScreen = new JTextArea(Util.processToGui(slayer + ".txt"));
         deathScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
-        asciiScreen.setFont(new Font("Courier", Font.PLAIN, 10));
-        asciiScreen.setPreferredSize(new Dimension(1280, 720));
-        asciiScreen.setMinimumSize(new Dimension(1280, 720));
+        asciiScreen.setFont(new Font("MonoSpaced", Font.BOLD, 6));
+        asciiScreen.setPreferredSize(new Dimension(XDIM, 720));
+        asciiScreen.setMinimumSize(new Dimension(XDIM, 720));
         deathScreen.setVisible(true);
     }
 
@@ -105,14 +108,15 @@ public class Controller {
      */
     public static void winGame() {
         gameScreen.setVisible(false);
+        started = false;
         winScreen = new JFrame();
         winScreen.addKeyListener(new MyKeyListener());
         winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         winScreen.setLayout(new FlowLayout());
-        winScreen.setPreferredSize(new Dimension(1280, 720));
-        winScreen.setMinimumSize(new Dimension(1280, 720));
+        winScreen.setPreferredSize(new Dimension(XDIM, 720));
+        winScreen.setMinimumSize(new Dimension(XDIM, 720));
 
-        JTextArea asciiScreen = new JTextArea(Util.getFile("Win_Screen.txt"));
+        JTextArea asciiScreen = new JTextArea(Util.processToGui("Win_Screen.txt"));
         winScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
@@ -121,14 +125,25 @@ public class Controller {
         winScreen.setVisible(true);
     }
 
+    public static boolean isHasWon() {
+        return hasWon;
+    }
+
+    public static void setHasWon(boolean hasWon) {
+        Controller.hasWon = hasWon;
+    }
+
     @SuppressWarnings(value = { "unused" })
     private static Player player;
-    private static JFrame title;
-    private static JFrame gameScreen;
-    private static JFrame deathScreen;
-    private static JFrame winScreen;
+    private static JFrame title = new JFrame();
+    private static JFrame gameScreen = new JFrame();
+    private static JFrame deathScreen = new JFrame();
+    private static JFrame winScreen = new JFrame();
     private static boolean started = false;
     private static Map map;
+    private static boolean hasWon = false;
+    public static final int XDIM = 1366;
+    public static final int YDIM = 766;
 
     private static boolean playerTurn = true;
 
@@ -160,13 +175,13 @@ public class Controller {
                 e.printStackTrace();
             }
             String slayer = moveEnemies();
-            if (slayer == null) {
+            if (slayer == null && !hasWon) {
                 JFrame tempScreen = new JFrame();
                 tempScreen.addKeyListener(new MyKeyListener());
                 tempScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 tempScreen.setLayout(new FlowLayout());
-                tempScreen.setPreferredSize(new Dimension(1280, 720));
-                tempScreen.setMinimumSize(new Dimension(1280, 720));
+                tempScreen.setPreferredSize(new Dimension(XDIM, 720));
+                tempScreen.setMinimumSize(new Dimension(XDIM, 720));
 
                 JTextArea asciiScreen = new JTextArea(map.processToGui());
                 tempScreen.add(asciiScreen);

@@ -84,6 +84,7 @@ public class Map {
                     System.out.println("You killed a " + enemies.get(i).getName());
                     enemies.remove(i);
                     if (enemies.size() == 0) {
+                        Controller.setHasWon(true);
                         Controller.winGame();
                     }
                 }

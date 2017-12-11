@@ -10,8 +10,8 @@ public class MyKeyListener extends KeyAdapter implements KeyListener {
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
         int key = e.getKeyCode();
-        if (!Controller.isStarted() && key == KeyEvent.VK_ENTER) {
-
+        if (key == KeyEvent.VK_ENTER) {
+            Controller.setHasWon(false);
             Controller.startGame();
         }
         if (key == KeyEvent.VK_ESCAPE) {

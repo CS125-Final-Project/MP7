@@ -51,8 +51,7 @@ public abstract class Mob extends GameObject {
         if (distance > attackRange) {
             return false;
         }
-        if (world.gameMap[x][y] instanceof Player) {
-            ((Player) world.gameMap[x][y]).setAlive(false);
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
             Controller.deadGame(this.name);
             return true;
         }
@@ -67,8 +66,7 @@ public abstract class Mob extends GameObject {
         if (distance > attackRange) {
             return false;
         }
-        if (world.gameMap[x][y] instanceof Player) {
-            ((Player) world.gameMap[x][y]).setAlive(false);
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
             Controller.deadGame(this.name);
             return true;
         }
@@ -83,8 +81,7 @@ public abstract class Mob extends GameObject {
         if (distance > attackRange) {
             return false;
         }
-        if (world.gameMap[x][y] instanceof Player) {
-            ((Player) world.gameMap[x][y]).setAlive(false);
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
             Controller.deadGame(this.name);
             return true;
         }
@@ -99,8 +96,7 @@ public abstract class Mob extends GameObject {
         if (distance > attackRange) {
             return false;
         }
-        if (world.gameMap[x][y] instanceof Player) {
-            ((Player) world.gameMap[x][y]).setAlive(false);
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
             Controller.deadGame(this.name);
             return true;
         }
@@ -113,9 +109,7 @@ public abstract class Mob extends GameObject {
     /** Attacks the player. */
     public boolean attack(final int x, final int y, final int distance, final int direction) {
 
-        if (world.gameMap[x][y] instanceof Player) {
-            ((Player) world.gameMap[x][y]).setAlive(false);
-            System.out.println("Player is dead");
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
@@ -138,6 +132,40 @@ public abstract class Mob extends GameObject {
             }
         }
         if (direction == Util.WEST && y - 1 >= 0) {
+            if (this.attackWest(x, y - 1, distance + 1)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    
+    /** Attacks the player. */
+    public boolean attack(final int x, final int y, final int distance) {
+
+        if (world.getPlayer().getXpos() == x && world.getPlayer().getYpos() == y) {
+            return true;
+        }
+        if (world.gameMap[x][y] instanceof Wall) {
+            return false;
+        }
+
+        if (x + 1 < world.getMapWidth()) {
+            if (this.attackNorth(x + 1, y, distance + 1)) {
+                return true;
+            }
+        }
+        if (x - 1 >= 0) {
+            if (this.attackEast(x - 1, y, distance + 1)) {
+                return true;
+            }
+        }
+        if (y + 1 < world.getMapHeight()) {
+            if (this.attackSouth(x, y + 1, distance + 1)) {
+                return true;
+            }
+        }
+        if (y - 1 >= 0) {
             if (this.attackWest(x, y - 1, distance + 1)) {
                 return true;
             }
