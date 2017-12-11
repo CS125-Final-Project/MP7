@@ -83,9 +83,9 @@ public class Controller {
      */
     public static void deadGame(final String slayer) {
         started = false;
-        gameScreen.setVisible(false);
+        //gameScreen.setVisible(false);
         player = null;
-
+        
         deathScreen = new JFrame();
         deathScreen.addKeyListener(new MyKeyListener());
         deathScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -173,7 +173,7 @@ public class Controller {
             map.movePlayer(direction);
             map.printToConsole();
             try {
-                Thread.sleep(250);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
