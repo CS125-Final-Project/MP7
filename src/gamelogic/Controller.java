@@ -102,12 +102,12 @@ public class Controller {
         deathScreen.setVisible(true);
     }
 
+    
     /**
      * This helper function can be called in order to move to the win screen upon
      * victory.
      */
     public static void winGame() {
-        gameScreen.setVisible(false);
         started = false;
         winScreen = new JFrame();
         winScreen.addKeyListener(new MyKeyListener());
@@ -120,7 +120,8 @@ public class Controller {
         winScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
-        asciiScreen.setFont(new Font("Courier", Font.PLAIN, 4));
+        asciiScreen.setFont(new Font("Monospaced", Font.BOLD, 6));
+        gameScreen.setVisible(false);
 
         winScreen.setVisible(true);
     }
@@ -169,7 +170,7 @@ public class Controller {
             map.movePlayer(direction);
             map.printToConsole();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(250);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
