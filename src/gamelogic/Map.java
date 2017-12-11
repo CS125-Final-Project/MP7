@@ -33,10 +33,14 @@ public class Map {
         if (move < Util.NORTH || move > Util.WEST) {
             return false;
         }
+        if (gameMap[player.getX()][player.getY()] instanceof Mob) {
+            player.setAlive(false);
+            Controller.deadGame("Slime");
+        }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight 
-                || gameMap[newX][newY] instanceof Wall) {
+        if (newX < 0 || newY < 0 || newX >= mapWidth 
+                || newY >= mapHeight || gameMap[newX][newY] instanceof Wall) {
             return false;
         }
         return true;
@@ -57,12 +61,14 @@ public class Map {
      * @return true on success, false on failure.
      */
     public boolean moveObject(final int oldX, final int oldY, final int newX, final int newY) {
-        if (gameMap[newX][newY] instanceof Wall || gameMap[oldX][oldY] != null) {
+        if (gameMap[newX][newY] instanceof Wall || gameMap[oldX][oldY] == null) {
             return false;
+        } else if (gameMap[newX][newY] == null || gameMap[newX][newY] instanceof Player) {
+            gameMap[newX][newY] = gameMap[oldX][oldY];
+            gameMap[oldX][oldY] = null;
+            return true;
         }
-        gameMap[newX][newY] = gameMap[oldX][oldY];
-        gameMap[oldX][oldY] = null;
-        return true;
+        return false;
     }
 
     /**

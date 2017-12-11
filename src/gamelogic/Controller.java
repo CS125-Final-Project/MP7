@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
+
 public class Controller {
 
     /**
@@ -62,7 +63,7 @@ public class Controller {
         gameScreen.setPreferredSize(new Dimension(XDIM, 720));
         gameScreen.setMinimumSize(new Dimension(XDIM, 720));
 
-        JTextArea asciiScreen = new JTextArea(map.processToGui());
+        asciiScreen = new JTextArea(map.processToGui());
         gameScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
@@ -178,7 +179,7 @@ public class Controller {
                 e.printStackTrace();
             }
             String slayer = moveEnemies();
-            if (slayer == null && !hasWon) {
+            if (slayer == null && !hasWon && player.isAlive()) {
                 JFrame tempScreen = new JFrame();
                 tempScreen.addKeyListener(new MyKeyListener());
                 tempScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
