@@ -35,8 +35,8 @@ public class Map {
         }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight 
-                || gameMap[newX][newY] instanceof Wall) {
+        if (newX < 0 || newY < 0 || newX >= mapWidth 
+                || newY >= mapHeight || gameMap[newX][newY] instanceof Wall) {
             return false;
         }
         return true;
@@ -84,7 +84,7 @@ public class Map {
                     System.out.println("You killed a " + enemies.get(i).getName());
                     enemies.remove(i);
                     if (enemies.size() == 0) {
-                        System.out.println("You killed all the things!");
+                        Controller.winGame();
                     }
                 }
             }
@@ -141,8 +141,8 @@ public class Map {
     public Map(final String templateFilename) {
         String templateText;
         try {
-            String templatePath = Map.class.getClassLoader().getResource(templateFilename)
-                    .getFile();
+            String templatePath = Map.class.getClassLoader()
+                    .getResource(templateFilename).getFile();
 
             templatePath = new URI(templatePath).getPath();
             File templateFile = new File(templatePath);

@@ -15,6 +15,13 @@ public class Controller {
      *            unused
      */
     public static void main(final String[] args) {
+        loadTitle();
+    }
+
+    /**
+     * This helper function can be called in order to open the title screen.
+     */
+    public static void loadTitle() {
         title = new JFrame();
 
         JTextArea ascii = new JTextArea(Util.getFile("Title_Screen.txt"));
@@ -32,14 +39,8 @@ public class Controller {
 
         ascii.addKeyListener(new MyKeyListener());
         title.setVisible(true);
-
-        // map.printToConsole();
-        /*
-         * while (player.isAlive()) { // get player's next move int nextMove = -1; while
-         * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
-         */
     }
-    
+
     /**
      * This is a helper function which will start the game from the title screen
      * using the Key Listener enter function. This also displays the initial ASCII
@@ -51,30 +52,84 @@ public class Controller {
         map = new Map("Map_Data.txt");
         player = map.getPlayer();
 
-        JFrame gameScreen = new JFrame();
+        gameScreen = new JFrame();
         gameScreen.addKeyListener(new MyKeyListener());
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setLayout(new FlowLayout());
         gameScreen.setPreferredSize(new Dimension(1280, 720));
         gameScreen.setMinimumSize(new Dimension(1280, 720));
-        
+
         JTextArea asciiScreen = new JTextArea(map.processToGui());
         gameScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
         asciiScreen.setFont(new Font("Courier", Font.PLAIN, 100));
-        
+
         JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
         gameScreen.add(controlGuide);
         gameScreen.setVisible(true);
     }
 
+    /**
+     * This is a function which will play a death screen based upon the enemy which
+     * performed the kill.
+     * 
+     * @param slayer
+     *            The mob which killed the player.
+     */
+    public static void deadGame(final String slayer) {
+        started = false;
+        gameScreen.setVisible(false);
+        player = null;
+
+        deathScreen = new JFrame();
+        deathScreen.addKeyListener(new MyKeyListener());
+        deathScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        deathScreen.setLayout(new FlowLayout());
+        deathScreen.setPreferredSize(new Dimension(1280, 720));
+        deathScreen.setMinimumSize(new Dimension(1280, 720));
+
+        JTextArea asciiScreen = new JTextArea(Util.getFile(slayer + ".txt"));
+        deathScreen.add(asciiScreen);
+        asciiScreen.setEditable(false);
+        asciiScreen.addKeyListener(new MyKeyListener());
+        asciiScreen.setFont(new Font("Courier", Font.PLAIN, 10));
+        asciiScreen.setPreferredSize(new Dimension(1280, 720));
+        asciiScreen.setMinimumSize(new Dimension(1280, 720));
+        deathScreen.setVisible(true);
+    }
+
+    /**
+     * This helper function can be called in order to move to the win screen upon
+     * victory.
+     */
+    public static void winGame() {
+        gameScreen.setVisible(false);
+        winScreen = new JFrame();
+        winScreen.addKeyListener(new MyKeyListener());
+        winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        winScreen.setLayout(new FlowLayout());
+        winScreen.setPreferredSize(new Dimension(1280, 720));
+        winScreen.setMinimumSize(new Dimension(1280, 720));
+
+        JTextArea asciiScreen = new JTextArea(Util.getFile("Win_Screen.txt"));
+        winScreen.add(asciiScreen);
+        asciiScreen.setEditable(false);
+        asciiScreen.addKeyListener(new MyKeyListener());
+        asciiScreen.setFont(new Font("Courier", Font.PLAIN, 4));
+
+        winScreen.setVisible(true);
+    }
+
+    @SuppressWarnings(value = { "unused" })
+    private static Player player;
     private static JFrame title;
+    private static JFrame gameScreen;
+    private static JFrame deathScreen;
+    private static JFrame winScreen;
     private static boolean started = false;
     private static Map map;
-    
-    @SuppressWarnings(value = {"unused" })
-    private static Player player;
+
     private static boolean playerTurn = true;
 
     public static void setStarted(boolean startedNew) {
@@ -92,7 +147,7 @@ public class Controller {
      * @param direction
      *            the direction to attempt to move
      */
-    public static void movePlayer(int direction) {
+    public static boolean movePlayer(int direction) {
         if (playerTurn && map.checkMove(direction)) {
             // does some stuff
             playerTurn = false;
@@ -104,23 +159,55 @@ public class Controller {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            moveEnemies();
+            String slayer = moveEnemies();
+            if (slayer == null) {
+                JFrame tempScreen = new JFrame();
+                tempScreen.addKeyListener(new MyKeyListener());
+                tempScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                tempScreen.setLayout(new FlowLayout());
+                tempScreen.setPreferredSize(new Dimension(1280, 720));
+                tempScreen.setMinimumSize(new Dimension(1280, 720));
+
+                JTextArea asciiScreen = new JTextArea(map.processToGui());
+                tempScreen.add(asciiScreen);
+                asciiScreen.setEditable(false);
+                asciiScreen.addKeyListener(new MyKeyListener());
+                asciiScreen.setFont(new Font("Courier", Font.PLAIN, 100));
+                gameScreen.setVisible(false);
+                gameScreen = tempScreen;
+                JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
+                controlGuide.addKeyListener(new MyKeyListener());
+                gameScreen.add(controlGuide);
+                
+                gameScreen.setVisible(true);
+            } else {
+                started = false;
+                deadGame(slayer);
+            }
             playerTurn = true;
         }
+        return true;
         // don't do anything if the move was invalid
     }
 
-    private static void moveEnemies() {
+    /*    *//**
+             * Kills the player if the end their turn right next to a mob.
+             *//*
+                * private static void enemyAttack() { for (int i = 0; i <
+                * map.getEnemies().size(); i += 1) { Mob temp = ((Mob)
+                * map.getEnemies().get(i)); temp.attack(temp.getXpos(), (temp).getYpos(),
+                * temp.attackRange); } }
+                */
+
+    private static String moveEnemies() {
+        String slayer = null;
         map.genHeatMap();
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
             Mob temp = ((Mob) map.getEnemies().get(i));
-            temp.attack(temp.getXpos(), (temp).getYpos(), temp.attackRange);
+            slayer = temp.move();
         }
-        for (int i = 0; i < map.getEnemies().size(); i += 1) {
-            Mob temp = ((Mob) map.getEnemies().get(i));
-            temp.move();
-        }
-        map.printToConsole();
+        return slayer;
+        // map.printToConsole();
     }
 
     public static boolean isPlayerTurn() {

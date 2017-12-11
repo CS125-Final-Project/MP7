@@ -15,15 +15,21 @@ public class Slime extends Mob {
     public static final char ASCII = 'S';
 
     /** This function moves the slime along the closest path towards the player.*/
-    public void move() {
+    public String move() {
         int moveDir = findPlayer();
         int newX = Util.newX(xpos, moveDir);
         int newY = Util.newY(ypos, moveDir);
         if (world.moveObject(xpos, ypos, newX, newY)) {
-            xpos = newX;
-            ypos = newY;
+            this.xpos = newX;
+            this.ypos = newY;
         } else {
             System.out.println("The slime says 'blurp'.");
+        }
+        if (attack(this.xpos, this.ypos, attackRange, moveDir)) {
+            System.out.println("Player dead.");
+            return this.name;
+        } else {
+            return null;
         }
     }
 

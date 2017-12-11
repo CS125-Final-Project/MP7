@@ -53,6 +53,7 @@ public abstract class Mob extends GameObject {
         }
         if (world.gameMap[x][y] instanceof Player) {
             ((Player) world.gameMap[x][y]).setAlive(false);
+            Controller.deadGame(this.name);
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
@@ -68,6 +69,7 @@ public abstract class Mob extends GameObject {
         }
         if (world.gameMap[x][y] instanceof Player) {
             ((Player) world.gameMap[x][y]).setAlive(false);
+            Controller.deadGame(this.name);
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
@@ -83,6 +85,7 @@ public abstract class Mob extends GameObject {
         }
         if (world.gameMap[x][y] instanceof Player) {
             ((Player) world.gameMap[x][y]).setAlive(false);
+            Controller.deadGame(this.name);
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
@@ -98,6 +101,7 @@ public abstract class Mob extends GameObject {
         }
         if (world.gameMap[x][y] instanceof Player) {
             ((Player) world.gameMap[x][y]).setAlive(false);
+            Controller.deadGame(this.name);
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
@@ -107,35 +111,33 @@ public abstract class Mob extends GameObject {
     }
 
     /** Attacks the player. */
-    public boolean attack(final int x, final int y, final int distance) {
+    public boolean attack(final int x, final int y, final int distance, final int direction) {
 
-        if (distance > attackRange) {
-            return false;
-        }
         if (world.gameMap[x][y] instanceof Player) {
             ((Player) world.gameMap[x][y]).setAlive(false);
+            System.out.println("Player is dead");
             return true;
         }
         if (world.gameMap[x][y] instanceof Wall) {
             return false;
         }
 
-        if (x + 1 < world.getMapWidth()) {
+        if (direction == Util.NORTH && x + 1 < world.getMapWidth()) {
             if (this.attackNorth(x + 1, y, distance + 1)) {
                 return true;
             }
         }
-        if (x - 1 >= 0) {
+        if (direction == Util.EAST && x - 1 >= 0) {
             if (this.attackEast(x - 1, y, distance + 1)) {
                 return true;
             }
         }
-        if (y + 1 < world.getMapHeight()) {
+        if (direction == Util.SOUTH && y + 1 < world.getMapHeight()) {
             if (this.attackSouth(x, y + 1, distance + 1)) {
                 return true;
             }
         }
-        if (y - 1 >= 0) {
+        if (direction == Util.WEST && y - 1 >= 0) {
             if (this.attackWest(x, y - 1, distance + 1)) {
                 return true;
             }
@@ -143,7 +145,8 @@ public abstract class Mob extends GameObject {
         return false;
 
     }
-    /** Individual mobs should override this function with the requisite special moves.*/
+    /** Individual mobs should override this function with the requisite special moves.
+     * @return Did we kill something? */
     
-    public abstract void move();
+    public abstract String move();
 }
