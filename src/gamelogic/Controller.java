@@ -181,7 +181,7 @@ public class Controller {
             String slayer = moveEnemies();
             if (slayer == null && !hasWon && player.isAlive()) {
                 asciiScreen.setEditable(true);
-                asciiScreen.addKeyListener(new MyKeyListener());
+                //asciiScreen.addKeyListener(new MyKeyListener());
                 asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
                 asciiScreen.setText(map.processToGui());
                 asciiScreen.setEditable(false);
