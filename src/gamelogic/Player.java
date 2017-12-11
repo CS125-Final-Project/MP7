@@ -11,14 +11,14 @@ package gamelogic;
 public class Player extends GameObject {
     
     /** Character to represent the player. */
-    final public static char ASCII = 'P';
+    public static final char ASCII = 'P';
     
     public int getX() {
-        return x;
+        return xpos;
     }
     
     public int getY() {
-        return y;
+        return ypos;
     }
     
     /** Whether the player in question is alive. */
@@ -33,14 +33,19 @@ public class Player extends GameObject {
     }
     
     /** Items carried by the player. */
+    @SuppressWarnings("unused")
     private GameObject[] inventory = new GameObject[MAX_STACK];
     
-    /** Constructor for player. */
+    /**
+     * This is a constructor for the player which takes a starting position.
+     * @param startX Starting position on a map.
+     * @param startY starting position on a map.
+     */
     public Player(final int startX, final int startY) {
         isAlive = true;
         ascii = ASCII;
-        x = startX;
-        y = startY;
+        xpos = startX;
+        ypos = startY;
     }
 
     

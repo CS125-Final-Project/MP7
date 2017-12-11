@@ -3,13 +3,7 @@ package gamelogic;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Label;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Controller {
@@ -24,9 +18,7 @@ public class Controller {
         title = new JFrame();
 
         JTextArea ascii = new JTextArea(Util.getFile("Title_Screen.txt"));
-        // JPanel stuff = new JPanel();
-        // title.add(stuff);
-        // stuff.add(ascii);
+        title.add(ascii);
         title.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         title.setLayout(new FlowLayout());
         title.setPreferredSize(new Dimension(1280, 720));
@@ -37,7 +29,7 @@ public class Controller {
         ascii.setPreferredSize(new Dimension(1280, 720));
         ascii.setMinimumSize(new Dimension(1280, 720));
         title.addKeyListener(new MyKeyListener());
-        title.add(ascii);
+
         ascii.addKeyListener(new MyKeyListener());
         title.setVisible(true);
 
@@ -47,11 +39,13 @@ public class Controller {
          * (!map.checkMove(nextMove)) { nextMove = getMove(); } }
          */
     }
-
+    
+    /**
+     * This is a helper function which will start the game from the title screen
+     * using the Key Listener enter function. This also displays the initial ASCII
+     * game screen.
+     */
     public static void startGame() {
-        if (started == true) {
-            return;
-        }
         started = true;
         title.setVisible(false);
         map = new Map("Map_Data.txt");
@@ -59,15 +53,17 @@ public class Controller {
 
         JFrame gameScreen = new JFrame();
         gameScreen.addKeyListener(new MyKeyListener());
-        JTextArea asciiScreen = new JTextArea(map.processToGui());
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setLayout(new FlowLayout());
-        gameScreen.setPreferredSize(new Dimension(800, 600));
-        gameScreen.setMinimumSize(new Dimension(600, 450));
+        gameScreen.setPreferredSize(new Dimension(1280, 720));
+        gameScreen.setMinimumSize(new Dimension(1280, 720));
+        
+        JTextArea asciiScreen = new JTextArea(map.processToGui());
         gameScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(new MyKeyListener());
         asciiScreen.setFont(new Font("Courier", Font.PLAIN, 100));
+        
         JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
         gameScreen.add(controlGuide);
         gameScreen.setVisible(true);
@@ -76,8 +72,9 @@ public class Controller {
     private static JFrame title;
     private static boolean started = false;
     private static Map map;
+    
+    @SuppressWarnings(value = {"unused" })
     private static Player player;
-    private static MyKeyListener input;
     private static boolean playerTurn = true;
 
     public static void setStarted(boolean startedNew) {
@@ -117,7 +114,7 @@ public class Controller {
         map.genHeatMap();
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
             Mob temp = ((Mob) map.getEnemies().get(i));
-            temp.attack(temp.x, temp.y, temp.attackRange);
+            temp.attack(temp.getXpos(), (temp).getYpos(), temp.attackRange);
         }
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
             Mob temp = ((Mob) map.getEnemies().get(i));

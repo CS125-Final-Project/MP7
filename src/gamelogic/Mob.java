@@ -8,6 +8,7 @@ package gamelogic;
  *
  */
 public abstract class Mob extends GameObject {
+    
     protected Map world;
     /** Is it trying to kill you.? */
     protected boolean isHostile;
@@ -37,10 +38,10 @@ public abstract class Mob extends GameObject {
         
         // Smart pathfinding.
         // world.genHeatMap();
-        dirs[Util.NORTH] = world.heatMap[x][y - 1];
-        dirs[Util.EAST] = world.heatMap[x + 1][y];
-        dirs[Util.SOUTH] = world.heatMap[x][y + 1];
-        dirs[Util.WEST] = world.heatMap[x - 1][y];
+        dirs[Util.NORTH] = world.heatMap[xpos][ypos - 1];
+        dirs[Util.EAST] = world.heatMap[xpos + 1][ypos];
+        dirs[Util.SOUTH] = world.heatMap[xpos][ypos + 1];
+        dirs[Util.WEST] = world.heatMap[xpos - 1][ypos];
 
         return Util.findIndexOfMin(dirs);
     }
@@ -142,6 +143,7 @@ public abstract class Mob extends GameObject {
         return false;
 
     }
+    /** Individual mobs should override this function with the requisite special moves.*/
     
     public abstract void move();
 }

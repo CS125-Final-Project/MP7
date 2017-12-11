@@ -13,11 +13,11 @@ public class Map {
     GameObject[][] gameMap;
     private ArrayList<Mob> enemies = new ArrayList<Mob>();
     private Player player;
-    
+
     public ArrayList<Mob> getEnemies() {
         return enemies;
     }
-    
+
     public Player getPlayer() {
         return player;
     }
@@ -25,7 +25,8 @@ public class Map {
     /**
      * Checks if a move is valid for this map.
      * 
-     * @param move the move to check
+     * @param move
+     *            the move to check
      * @return true iff it is a valid move
      */
     public boolean checkMove(int move) {
@@ -34,20 +35,25 @@ public class Map {
         }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
-        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight
+        if (newX < 0 || newY < 0 || newX >= mapWidth || newY >= mapHeight 
                 || gameMap[newX][newY] instanceof Wall) {
             return false;
         }
         return true;
     }
-    
+
     /**
-     * Attempts to move the object at oldX, oldY to newX, newY.
-     * Fails if you try to move into a wall or are nothing.
-     * @param oldX old x
-     * @param oldY old y
-     * @param newX new x
-     * @param newY new y
+     * Attempts to move the object at oldX, oldY to newX, newY. Fails if you try to
+     * move into a wall or are nothing.
+     * 
+     * @param oldX
+     *            old x
+     * @param oldY
+     *            old y
+     * @param newX
+     *            new x
+     * @param newY
+     *            new y
      * @return true on success, false on failure.
      */
     public boolean moveObject(final int oldX, final int oldY, final int newX, final int newY) {
@@ -58,22 +64,23 @@ public class Map {
         gameMap[oldX][oldY] = null;
         return true;
     }
-    
+
     /**
-     * This function will move the player and kill things where the player moves. 
-     *      Can later be changed to attack stuff.
-     * @param move This is the direction which will be passed in by the controller. 
-     *      Obtained from the key listener.
+     * This function will move the player and kill things where the player moves.
+     * Can later be changed to attack stuff.
+     * 
+     * @param move
+     *            This is the direction which will be passed in by the controller.
+     *            Obtained from the key listener.
      * @return This confirms that the move has occurred.
      */
-    
+
     public boolean movePlayer(int move) {
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
         if (gameMap[newX][newY] instanceof Mob) {
             for (int i = 0; i < enemies.size(); i += 1) {
-                if (enemies.get(i).x == gameMap[newX][newY].x
-                        && enemies.get(i).y == gameMap[newX][newY].y) {
+                if (enemies.get(i).equals(gameMap[newX][newY])) {
                     System.out.println("You killed a " + enemies.get(i).getName());
                     enemies.remove(i);
                     if (enemies.size() == 0) {
@@ -83,17 +90,17 @@ public class Map {
             }
             gameMap[newX][newY] = null;
         } else {
-            gameMap[player.x][player.y] = null;
+            gameMap[player.getXpos()][player.getYpos()] = null;
             gameMap[newX][newY] = player;
-            player.x = newX;
-            player.y = newY;
+            player.setXpos(newX);
+            player.setYpos(newY);
         }
         return true;
     }
 
     /** Code for an inaccessible location on the heat map. */
     public static final int INACCESSIBLE = 999;
-    
+
     /**
      * Generates a "heat map", where the value is the distance from the player.
      */
@@ -105,11 +112,11 @@ public class Map {
         }
         generateHeatMap(player.getX(), player.getY(), 0);
     }
-    
+
     private void generateHeatMap(final int x, final int y, final int distance) {
         if (gameMap[x][y] instanceof Wall) {
             return;
-        } 
+        }
         heatMap[x][y] = distance;
         if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
             generateHeatMap(x + 1, y, distance + 1);
@@ -128,14 +135,15 @@ public class Map {
     /**
      * Generates a map based off of a template.
      * 
-     * @param templateFilename the filename of the level data (a text file)
+     * @param templateFilename
+     *            the filename of the level data (a text file)
      */
     public Map(final String templateFilename) {
         String templateText;
         try {
-            String templatePath = Map.class.getClassLoader()
-                    .getResource(templateFilename).getFile();
-            
+            String templatePath = Map.class.getClassLoader().getResource(templateFilename)
+                    .getFile();
+
             templatePath = new URI(templatePath).getPath();
             File templateFile = new File(templatePath);
             Scanner templateScanner = new Scanner(templateFile, "UTF-8");
@@ -144,9 +152,9 @@ public class Map {
         } catch (Exception e) {
             throw new InvalidParameterException("Bad file path" + e);
         }
-        
+
         String[] rowChars = templateText.split("\n");
-        
+
         mapWidth = rowChars[0].length();
         mapHeight = rowChars.length;
         gameMap = new GameObject[mapWidth][mapHeight];
@@ -164,7 +172,7 @@ public class Map {
 
                 } else if (tempChar == Slime.ASCII) {
                     gameMap[x][y] = new Slime(x, y, this);
-                    enemies.add((Slime)gameMap[x][y]);
+                    enemies.add((Slime) gameMap[x][y]);
                 } else if (tempChar == Player.ASCII) {
                     if (player != null) {
                         throw new IllegalArgumentException("Level data has two or more players!");
@@ -186,11 +194,11 @@ public class Map {
     public int getMapHeight() {
         return mapHeight;
     }
-    
+
     /** Prints the map to the console. */
     public void printToConsole() {
         System.out.println();
-        for (int y = 0; y < mapHeight; y ++) {
+        for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 if (gameMap[x][y] == null) {
                     System.out.print("  ");
@@ -201,11 +209,11 @@ public class Map {
             System.out.println();
         }
     }
-    
+
     /** Prints the map to the console. */
     public String processToGui() {
         StringBuffer guiAccumulator = new StringBuffer();
-        for (int y = 0; y < mapHeight; y ++) {
+        for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 if (gameMap[x][y] == null) {
                     guiAccumulator.append(' ');
@@ -213,8 +221,10 @@ public class Map {
                     guiAccumulator.append(gameMap[x][y].getAscii());
                 }
             }
+            guiAccumulator.deleteCharAt(guiAccumulator.length() - 1);
             guiAccumulator.append("\n");
         }
+        System.out.println(guiAccumulator.toString());
         return guiAccumulator.toString();
     }
 

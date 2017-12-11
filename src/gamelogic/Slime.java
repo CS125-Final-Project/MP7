@@ -13,33 +13,36 @@ package gamelogic;
  */
 public class Slime extends Mob {
     public static final char ASCII = 'S';
-    
-    /** Moves the slime. */
+
+    /** This function moves the slime along the closest path towards the player.*/
     public void move() {
         int moveDir = findPlayer();
-        int newX = Util.newX(x, moveDir);
-        int newY = Util.newY(y, moveDir);
-        if (world.moveObject(x, y, newX, newY)) {
-            x = newX;
-            y = newY;
+        int newX = Util.newX(xpos, moveDir);
+        int newY = Util.newY(ypos, moveDir);
+        if (world.moveObject(xpos, ypos, newX, newY)) {
+            xpos = newX;
+            ypos = newY;
         } else {
             System.out.println("The slime says 'blurp'.");
         }
     }
-    
+
     /**
-     * ISSA NEW SLIME.
+     * Slime Constructor, accepts an x and y position and a Map reference which
+     * determines what map it exists on.
      * 
+     * @param x This is the slime's position on the game map of the Map reference.
+     * @param y This is the Slime's position on the game map of the Map reference.
+     * @param exist This is a map reference which refers to where a slime exists.
      */
-    public Slime(int xPos, int yPos, final Map exist) {
+    public Slime(int x, int y, final Map exist) {
         ascii = ASCII;
         name = "Slime";
         attackRange = 1;
         world = exist;
-        x = xPos;
-        y = yPos;
+        xpos = x;
+        ypos = y;
         // TODO Auto-generated constructor stub
     }
-    
 
 }
