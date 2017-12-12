@@ -20,6 +20,7 @@ public class Controller {
     }
 
     public static MyKeyListener input = new MyKeyListener();
+    public static int level = 1;
     
     /**
      * This helper function can be called in order to open the title screen.
@@ -78,7 +79,7 @@ public class Controller {
         started = true;
         clearScreens();
         
-        map = new Map("Map_Data2.txt");
+        map = new Map("Level" + level + ".txt");
         player = map.getPlayer();
 
         gameScreen = new JFrame();
@@ -95,6 +96,8 @@ public class Controller {
         asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
 
         JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
+        controlGuide.setEditable(false);
+        controlGuide.addKeyListener(input);
         gameScreen.add(controlGuide);
         gameScreen.setVisible(true);
     }
@@ -127,6 +130,7 @@ public class Controller {
         deathScreen.setVisible(true);
     }
 
+    public static final int MAX_LEVEL = 3;
     
     /**
      * This helper function can be called in order to move to the win screen upon
@@ -134,6 +138,10 @@ public class Controller {
      */
     public static void winGame() {
         started = false;
+        level ++;
+        if (level > MAX_LEVEL) {
+            level = 0;
+        }
         clearScreens();
         winScreen = new JFrame();
         winScreen.addKeyListener(input);

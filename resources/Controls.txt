@@ -5,6 +5,7 @@
 4. git gud
 5. Slay all of the slimes on the map.
 6. exult in victory.
+7. Play the next level.
 
 	Controls 	
 Move Up		: W
