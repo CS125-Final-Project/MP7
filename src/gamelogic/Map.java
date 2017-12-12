@@ -166,10 +166,10 @@ public class Map {
         mapHeight = rowChars.length;
         gameMap = new GameObject[mapWidth][mapHeight];
         heatMap = new int[mapWidth][mapHeight];
-        for (int x = 0; x < mapWidth - 1; x += 1) {
-            for (int y = 0; y < mapHeight; y += 1) {
-
-                char tempChar = rowChars[x].charAt(y);
+        
+        for (int y = 0; y < mapHeight; y += 1) {
+            for (int x = 0; x < mapWidth - 1; x += 1) {
+                char tempChar = rowChars[y].charAt(x);
 
                 if (tempChar == ' ') {
                     gameMap[x][y] = null;

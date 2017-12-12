@@ -4,4 +4,4 @@ Move Left		: A
 Move Down		: S
 Move Right		: D
 Quit Game		: ESC
-Restart Game	: Enter
+Restart Game		: Enter

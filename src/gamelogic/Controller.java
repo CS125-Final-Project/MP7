@@ -78,7 +78,7 @@ public class Controller {
         started = true;
         clearScreens();
         
-        map = new Map("Map_Data2.txt");
+        map = new Map("Map_Data3.txt");
         player = map.getPlayer();
 
         gameScreen = new JFrame();
@@ -147,7 +147,6 @@ public class Controller {
         asciiScreen.setEditable(false);
         asciiScreen.addKeyListener(input);
         asciiScreen.setFont(new Font("Monospaced", Font.BOLD, 6));
-        gameScreen.setVisible(false);
 
         winScreen.setVisible(true);
     }
