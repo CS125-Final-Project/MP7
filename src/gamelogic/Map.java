@@ -178,7 +178,7 @@ public class Map {
                     gameMap[x][y] = null;
 
                 } else if (tempChar == Wall.ASCII) {
-                    gameMap[x][y] = new Wall();
+                    gameMap[x][y] = Wall.WALL;
 
                 } else if (tempChar == Slime.ASCII) {
                     gameMap[x][y] = new Slime(x, y, this);

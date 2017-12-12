@@ -203,6 +203,13 @@ public class Controller {
             asciiScreen.setText(map.processToGui());
             asciiScreen.setEditable(false);
             gameScreen.setVisible(true);
+            
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             */
             String slayer = moveEnemies();
             if (slayer == null && !hasWon && player.isAlive()) {

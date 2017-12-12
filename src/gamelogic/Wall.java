@@ -19,4 +19,6 @@ public class Wall extends GameObject {
     public Wall() {
         ascii = ASCII;
     }
+    
+    public static final Wall WALL = new Wall();
 }
