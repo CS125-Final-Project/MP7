@@ -1,4 +1,4 @@
-Instructions:
+	Instructions:
 1. Move toward an adjacent slime to slay it while remaining still.
 2. Get eaten by slimes when you move adjacent to them.
 3. Get frustrated by the death screen.
