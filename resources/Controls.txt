@@ -1,3 +1,11 @@
+Instructions:
+1. Move toward an adjacent slime to slay it while remaining still.
+2. Get eaten by slimes when you move adjacent to them.
+3. Get frustrated by the death screen.
+4. git gud
+5. Slay all of the slimes on the map.
+6. exult in victory.
+
 	Controls 	
 Move Up		: W
 Move Left		: A
