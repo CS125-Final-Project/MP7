@@ -114,10 +114,10 @@ public class Util {
         String[] temp = templateText.split("\n");
         StringBuffer guiAccumulator = new StringBuffer();
         for (int y = 0; y < temp.length; y++) {
-            for (int x = 0; x < 60; x += 1) {
+            for (int x = 0; x < 10; x += 1) {
                 guiAccumulator.append(" ");
             }
-            for (int x = 2; x < temp[y].length(); x++) {
+            for (int x = 1; x < temp[y].length(); x++) {
 
                 guiAccumulator.append("");
                 guiAccumulator.append(temp[y].charAt(x));
