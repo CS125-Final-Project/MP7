@@ -1,5 +1,5 @@
-       Controls 	
-Move Up 		: W
+	Controls 	
+Move Up		: W
 Move Left		: A
 Move Down		: S
 Move Right		: D

@@ -106,7 +106,7 @@ public class Map {
     }
 
     /** Code for an inaccessible location on the heat map. */
-    public static final int INACCESSIBLE = 999;
+    public static final int INACCESSIBLE = 9999;
 
     /**
      * Generates a "heat map", where the value is the distance from the player.
@@ -120,9 +120,12 @@ public class Map {
         generateHeatMap(player.getX(), player.getY(), 0);
     }
 
-    private void generateHeatMap(final int x, final int y, final int distance) {
-        if (gameMap[x][y] != null && !(gameMap[x][y] instanceof Player)) {
+    private void generateHeatMap(final int x, final int y, int distance) {
+        if (gameMap[x][y] instanceof Wall) {
             return;
+        }
+        if (gameMap[x][y] instanceof Mob) {
+            distance += 100;
         }
         heatMap[x][y] = distance;
         if (x + 1 < mapWidth && heatMap[x + 1][y] > distance + 1) {
