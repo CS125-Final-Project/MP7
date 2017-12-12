@@ -49,6 +49,7 @@ public class Controller {
      */
     public static void startGame() {
         started = true;
+        gameScreen.setVisible(false);
         title.setVisible(false);
         winScreen.setVisible(false);
         deathScreen.setVisible(false);
