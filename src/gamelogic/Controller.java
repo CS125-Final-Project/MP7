@@ -31,7 +31,7 @@ public class Controller {
         title.setLayout(new FlowLayout());
         title.setPreferredSize(new Dimension(XDIM, 720));
         title.setMinimumSize(new Dimension(XDIM, 720));
-        ascii.setFont(new Font("Courier", Font.PLAIN, 10));
+        ascii.setFont(new Font("Monospaced", Font.PLAIN, 10));
         ascii.setLineWrap(true);
         ascii.setEditable(false);
         ascii.setPreferredSize(new Dimension(XDIM, 720));
