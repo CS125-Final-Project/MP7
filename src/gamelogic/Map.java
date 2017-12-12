@@ -223,9 +223,9 @@ public class Map {
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 if (gameMap[x][y] == null) {
-                    guiAccumulator.append(' ');
+                    guiAccumulator.append("  ");
                 } else {
-                    guiAccumulator.append(gameMap[x][y].getAscii());
+                    guiAccumulator.append(gameMap[x][y].getAscii() + " ");
                 }
             }
             guiAccumulator.deleteCharAt(guiAccumulator.length() - 1);
