@@ -1,0 +1,6 @@
+This work, "Slime", is a derivative of "Strawberry slime" by Bryan Ochalla used under CC BY-SA 2.0
+This work, "Slime", is a derivative that converts "Strawberry slime" into a greyscale ASCII version, and
+ adds the text "YOU HAVE DIED" in the ASCII Epic font to the top of the work.
+Source		:https://www.flickr.com/photos/bochalla/5459656667
+Link to License	:https://creativecommons.org/licenses/by-sa/2.0/legalcode
+This work is licensed under the Creative Commons Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0) license. To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/2.0/legalcode.

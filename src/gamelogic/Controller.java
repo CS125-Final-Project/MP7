@@ -78,7 +78,7 @@ public class Controller {
         started = true;
         clearScreens();
         
-        map = new Map("Map_Data1.txt");
+        map = new Map("Map_Data2.txt");
         player = map.getPlayer();
 
         gameScreen = new JFrame();
