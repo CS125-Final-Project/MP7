@@ -1,0 +1,5 @@
+This work, "Win_Screen", is a derivative of "Man Knight Fighter Sword Courageous Clothing" by SilviaP_Design used under CC0 Creative Commons
+This work, "Win_Screen", is a derivative that converts "Man Knight Fighter Sword Courageous Clothing" into a greyscale ASCII version, and
+ adds the text "YOU HAVE WON" in the ASCII Epic font to the top of the work.
+Source: https	://pixabay.com/p-1776934/?no_redirect
+Link to License	:https://creativecommons.org/publicdomain/zero/1.0/legalcode
