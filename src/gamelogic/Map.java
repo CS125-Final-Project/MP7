@@ -35,7 +35,7 @@ public class Map {
         }
         if (gameMap[player.getX()][player.getY()] instanceof Mob) {
             player.setAlive(false);
-            Controller.deadGame("Slime");
+            // Controller.deadGame("Slime");
         }
         int newX = Util.newX(player.getX(), move);
         int newY = Util.newY(player.getY(), move);
@@ -121,7 +121,7 @@ public class Map {
     }
 
     private void generateHeatMap(final int x, final int y, final int distance) {
-        if (gameMap[x][y] instanceof Wall) {
+        if (gameMap[x][y] != null && !(gameMap[x][y] instanceof Player)) {
             return;
         }
         heatMap[x][y] = distance;
@@ -231,7 +231,7 @@ public class Map {
             guiAccumulator.deleteCharAt(guiAccumulator.length() - 1);
             guiAccumulator.append("\n");
         }
-        System.out.println(guiAccumulator.toString());
+        //System.out.println(guiAccumulator.toString());
         return guiAccumulator.toString();
     }
 

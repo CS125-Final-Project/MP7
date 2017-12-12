@@ -37,7 +37,7 @@ public abstract class Mob extends GameObject {
          */
         
         // Smart pathfinding.
-        // world.genHeatMap();
+        world.genHeatMap();
         dirs[Util.NORTH] = world.heatMap[xpos][ypos - 1];
         dirs[Util.EAST] = world.heatMap[xpos + 1][ypos];
         dirs[Util.SOUTH] = world.heatMap[xpos][ypos + 1];

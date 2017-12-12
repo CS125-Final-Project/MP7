@@ -19,18 +19,17 @@ public class Slime extends Mob {
         int moveDir = findPlayer();
         int newX = Util.newX(xpos, moveDir);
         int newY = Util.newY(ypos, moveDir);
+        if (attack(this.xpos, this.ypos, 0)) {
+            System.out.println("Player dead.");
+            return this.name;
+        }
         if (world.moveObject(xpos, ypos, newX, newY)) {
             this.xpos = newX;
             this.ypos = newY;
         } else {
             System.out.println("The slime says 'blurp'.");
         }
-        if (attack(this.xpos, this.ypos, attackRange)) {
-            System.out.println("Player dead.");
-            return this.name;
-        } else {
-            return null;
-        }
+        return null;
     }
 
     /**

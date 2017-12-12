@@ -19,10 +19,14 @@ public class Controller {
         loadTitle();
     }
 
+    public static MyKeyListener input = new MyKeyListener();
+    
     /**
      * This helper function can be called in order to open the title screen.
      */
     public static void loadTitle() {
+        clearScreens();
+        
         title = new JFrame();
 
         JTextArea ascii = new JTextArea(Util.getFile("Title_Screen.txt"));
@@ -36,12 +40,35 @@ public class Controller {
         ascii.setEditable(false);
         ascii.setPreferredSize(new Dimension(XDIM, 720));
         ascii.setMinimumSize(new Dimension(XDIM, 720));
-        title.addKeyListener(new MyKeyListener());
+        title.addKeyListener(input);
 
-        ascii.addKeyListener(new MyKeyListener());
+        ascii.addKeyListener(input);
         title.setVisible(true);
     }
 
+    /**
+     * Helper function to reset all screens.
+     */
+    private static void clearScreens() {
+        if (title != null) {
+            title.setVisible(false);
+            title = null;
+        }
+        if (gameScreen != null) {
+            gameScreen.setVisible(false);
+            gameScreen = null;
+        }
+        if (deathScreen != null) {
+            deathScreen.setVisible(false);
+            deathScreen = null;
+        }
+        if (winScreen != null) {
+            winScreen.setVisible(false);
+            winScreen = null;
+        }
+        
+    }
+    
     /**
      * This is a helper function which will start the game from the title screen
      * using the Key Listener enter function. This also displays the initial ASCII
@@ -49,16 +76,13 @@ public class Controller {
      */
     public static void startGame() {
         started = true;
-        gameScreen.setVisible(false);
-        title.setVisible(false);
-        winScreen.setVisible(false);
-        deathScreen.setVisible(false);
+        clearScreens();
         
         map = new Map("Map_Data1.txt");
         player = map.getPlayer();
 
         gameScreen = new JFrame();
-        gameScreen.addKeyListener(new MyKeyListener());
+        gameScreen.addKeyListener(input);
         gameScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameScreen.setLayout(new FlowLayout());
         gameScreen.setPreferredSize(new Dimension(XDIM, 720));
@@ -67,7 +91,7 @@ public class Controller {
         asciiScreen = new JTextArea(map.processToGui());
         gameScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
-        asciiScreen.addKeyListener(new MyKeyListener());
+        asciiScreen.addKeyListener(input);
         asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
 
         JTextArea controlGuide = new JTextArea(Util.getFile("Controls.txt"));
@@ -84,23 +108,22 @@ public class Controller {
      */
     public static void deadGame(final String slayer) {
         started = false;
-        //gameScreen.setVisible(false);
-        player = null;
+        clearScreens();
         
         deathScreen = new JFrame();
-        deathScreen.addKeyListener(new MyKeyListener());
+        deathScreen.addKeyListener(input);
         deathScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         deathScreen.setLayout(new FlowLayout());
         deathScreen.setPreferredSize(new Dimension(XDIM, 720));
         deathScreen.setMinimumSize(new Dimension(XDIM, 720));
 
         JTextArea asciiScreen = new JTextArea(Util.processToGui(slayer + ".txt"));
-        deathScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
-        asciiScreen.addKeyListener(new MyKeyListener());
+        asciiScreen.addKeyListener(input);
         asciiScreen.setFont(new Font("MonoSpaced", Font.BOLD, 6));
         asciiScreen.setPreferredSize(new Dimension(XDIM, 720));
         asciiScreen.setMinimumSize(new Dimension(XDIM, 720));
+        deathScreen.add(asciiScreen);
         deathScreen.setVisible(true);
     }
 
@@ -111,8 +134,9 @@ public class Controller {
      */
     public static void winGame() {
         started = false;
+        clearScreens();
         winScreen = new JFrame();
-        winScreen.addKeyListener(new MyKeyListener());
+        winScreen.addKeyListener(input);
         winScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         winScreen.setLayout(new FlowLayout());
         winScreen.setPreferredSize(new Dimension(XDIM, 720));
@@ -121,7 +145,7 @@ public class Controller {
         JTextArea asciiScreen = new JTextArea(Util.processToGui("Win_Screen.txt"));
         winScreen.add(asciiScreen);
         asciiScreen.setEditable(false);
-        asciiScreen.addKeyListener(new MyKeyListener());
+        asciiScreen.addKeyListener(input);
         asciiScreen.setFont(new Font("Monospaced", Font.BOLD, 6));
         gameScreen.setVisible(false);
 
@@ -138,11 +162,11 @@ public class Controller {
 
     @SuppressWarnings(value = { "unused" })
     private static Player player;
-    private static JFrame title = new JFrame();
-    private static JFrame gameScreen = new JFrame();
-    private static JFrame deathScreen = new JFrame();
-    private static JFrame winScreen = new JFrame();
-    private static JTextArea asciiScreen = new JTextArea();
+    private static JFrame title;
+    private static JFrame gameScreen;
+    private static JFrame deathScreen;
+    private static JFrame winScreen;
+    private static JTextArea asciiScreen;
     private static boolean started = false;
     private static Map map;
     private static boolean hasWon = false;
@@ -168,28 +192,31 @@ public class Controller {
      *            the direction to attempt to move
      */
     public static boolean movePlayer(int direction) {
-        if (playerTurn && map.checkMove(direction)) {
+        if (player.isAlive() && playerTurn && map.checkMove(direction)) {
             // does some stuff
             playerTurn = false;
             map.movePlayer(direction);
             map.printToConsole();
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            /*
+            asciiScreen.setEditable(true);
+            //asciiScreen.addKeyListener(input);
+            asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
+            asciiScreen.setText(map.processToGui());
+            asciiScreen.setEditable(false);
+            gameScreen.setVisible(true);
+            */
             String slayer = moveEnemies();
             if (slayer == null && !hasWon && player.isAlive()) {
                 asciiScreen.setEditable(true);
-                //asciiScreen.addKeyListener(new MyKeyListener());
+                //asciiScreen.addKeyListener(input);
                 asciiScreen.setFont(new Font("Courier", Font.PLAIN, GAME_ASCII_SIZE));
                 asciiScreen.setText(map.processToGui());
                 asciiScreen.setEditable(false);
                 gameScreen.setVisible(true);
+                map.printToConsole();
             } else {
                 started = false;
-                deadGame(slayer);
+                // deadGame(slayer);
             }
             playerTurn = true;
         }
@@ -207,13 +234,15 @@ public class Controller {
                 */
 
     private static String moveEnemies() {
-        String slayer = null;
         map.genHeatMap();
         for (int i = 0; i < map.getEnemies().size(); i += 1) {
             Mob temp = ((Mob) map.getEnemies().get(i));
-            slayer = temp.move();
+            String slayer = temp.move();
+            if (slayer != null) {
+                return slayer;
+            }
         }
-        return slayer;
+        return null;
         // map.printToConsole();
     }
 
